@@ -29,7 +29,7 @@ interface CenturiesInfo {
 
 type CenturiesInfoKey = keyof CenturiesInfo
 
-export interface Date {
+export interface RandomDate {
   year: number;
   month: string;
   day: number;
@@ -98,7 +98,7 @@ export class DateGenerator {
     }
   }
 
-  public generateDate(from: number, to: number): Date {
+  public generateDate(from: number, to: number): RandomDate {
     const year = this.getRandomYear(from, to)
     const month = this.getRandomMonth()
     let day = this.getRandomDay(year, month)
@@ -130,7 +130,7 @@ export class DateGenerator {
     return Math.floor(Math.random() * (to - from) ) + from
   }
 
-  public getWeekday(date: Date): number {
+  public getWeekday(date: RandomDate): number {
     const { year, month, day } = date
 
     // Helper variables
