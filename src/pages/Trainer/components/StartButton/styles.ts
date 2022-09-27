@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const StartButtonContainer = styled.button`
   width: 250px;
   color: ${(props) => props.theme['gray-100']};
-  transition: color 0.25s;
+  transition: 0.25s;
   font-family: 'Roboto Mono', monospace;
   font-size: 3rem;
   font-weight: 800;
@@ -23,6 +23,5 @@ export const StartButtonContainer = styled.button`
   &:hover {
     cursor: pointer;
     color: ${(props) => props.theme['green-100']};
-    transition: color 0.25s;
   }
 `

@@ -27,6 +27,17 @@ interface CenturiesInfo {
   2000: number;
 }
 
+export interface WeekdayAnswer {
+  day: number;
+  steps: {
+    dayToMonthDoomsdayOffset: number
+    centuryCode: number
+    divisionDecadeByTwelve: number
+    remainderDecadeByTwelve: number
+    divisionRemainderByFour: number
+  }
+}
+
 type CenturiesInfoKey = keyof CenturiesInfo
 
 export interface RandomDate {
@@ -130,7 +141,7 @@ export class DateGenerator {
     return Math.floor(Math.random() * (to - from) ) + from
   }
 
-  public getWeekday(date: RandomDate): number {
+  public getWeekday(date: RandomDate): WeekdayAnswer {
     const { year, month, day } = date
 
     // Helper variables
@@ -146,7 +157,21 @@ export class DateGenerator {
     const remainderDecadeByTwelve = decade % 12
     const divisionRemainderByFour = Math.floor(remainderDecadeByTwelve / 4)
 
-    return (dayToMonthDoomsdayOffset + centuryCode + divisionDecadeByTwelve + remainderDecadeByTwelve + divisionRemainderByFour) % 7
+    const weekday = (dayToMonthDoomsdayOffset + centuryCode + divisionDecadeByTwelve + remainderDecadeByTwelve + divisionRemainderByFour) % 7
+    return {
+      day: weekday,
+      steps: {
+        dayToMonthDoomsdayOffset,
+        centuryCode,
+        divisionDecadeByTwelve,
+        remainderDecadeByTwelve,
+        divisionRemainderByFour,
+      }
+    }
+  }
+
+  public formatDate(randomDate: RandomDate): string {
+    return `${randomDate.day} ${randomDate.month} ${randomDate.year}`
   }
 
 }

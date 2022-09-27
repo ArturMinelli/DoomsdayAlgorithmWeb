@@ -1,10 +1,6 @@
 import styled from 'styled-components'
 import * as Dialog from '@radix-ui/react-dialog'
 
-export const FeedbackDialogPortal = styled(Dialog.Portal)`
-
-`
-
 export const FeedbackDialogOverlay = styled(Dialog.Overlay)`
   background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
@@ -17,7 +13,7 @@ export const FeedbackDialogOverlay = styled(Dialog.Overlay)`
 export const FeedbackDialogContent = styled(Dialog.Content)`
   position: fixed;
   width: 480px;
-  height: 600px;
+  height: 300px;
   background: ${(props) => props.theme['gray-700']};
   padding: 3rem;
   color: white;

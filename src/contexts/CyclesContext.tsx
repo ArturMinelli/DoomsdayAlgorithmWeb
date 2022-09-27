@@ -1,5 +1,7 @@
-import { createContext, ReactNode, useState } from "react"
-import { DateGenerator, RandomDate } from "../utils/DateGenerator";
+import { createContext, ReactNode, useReducer, useState } from "react"
+import { DateGenerator, RandomDate, WeekdayAnswer } from "../utils/DateGenerator";
+import { cyclesReducer, CyclesState } from "../reducers/cycles/reducer";
+import { createNewCycleAction, finishCurrentCycleAction } from "../reducers/actions";
 import { v4 as uuid } from 'uuid'
 
 interface CyclesContextType {
@@ -9,7 +11,7 @@ interface CyclesContextType {
   passedMilliseconds: number;
   isModalOpen: boolean;
   randomDate: RandomDate;
-  weekday: number;
+  weekday: WeekdayAnswer;
   userGuessedCorrectly: boolean | undefined;
   createNewCycle: () => void;
   handleUserGuess: (guess: string) => void;
@@ -17,8 +19,10 @@ interface CyclesContextType {
   updateMilliseconds: (milliseconds: number) => void;
 }
 
-interface Cycle {
+export interface Cycle {
   id: string;
+  randomDate: RandomDate;
+  weekday: WeekdayAnswer;
   startDate: Date;
   finishDate?: Date;
 }
@@ -31,29 +35,38 @@ export const CyclesContext = createContext({} as CyclesContextType)
 
 export function CyclesContextProvider({ children }: CyclesContextProviderProps) {
   const dateGenerator = new DateGenerator()
-  const [cycles, setCycles] = useState<Cycle[]>([])
-  const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
-  const [randomDate, setRandomDate] = useState(dateGenerator.generateDate(1700, 2100))
+
+  const [cyclesState, dispatch] = useReducer(cyclesReducer, {
+    cycles: [],
+    activeCycleId: null,
+  })
+
+  const { cycles, activeCycleId } = cyclesState
+
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [passedMilliseconds, setPassedMilliseconds] = useState<number>(0)
   const [userGuessedCorrectly, setUserGuessedCorrectly] = useState<boolean>(false)
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
-  const weekday = dateGenerator.getWeekday(randomDate)
+  const randomDate = (activeCycle && activeCycle.randomDate)
+  const weekday = (activeCycle && activeCycle.weekday)
 
-  async function createNewCycle() {
+  function createNewCycle() {
+    const randomDate = dateGenerator.generateDate(1700, 2100)
+    const weekday = dateGenerator.getWeekday(randomDate)
+
     const newCycle = {
       id: uuid(),
+      randomDate: randomDate,
+      weekday: weekday,
       startDate: new Date(),
     }
-
-    setCycles((state) => {
-      return [...state, newCycle]
-    })
-
-    setRandomDate(dateGenerator.generateDate(1700, 2100))
-    setActiveCycleId(newCycle.id)
     setPassedMilliseconds(0)
+    dispatch(createNewCycleAction(newCycle))
+  }
+
+  function finishCurrentCycle() {
+    dispatch(finishCurrentCycleAction())
   }
 
   function updateMilliseconds(milliseconds: number) {
@@ -61,8 +74,9 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
   }
 
   function handleUserGuess(guess: string) {
-    setUserGuessedCorrectly((weekday.toString() === guess) ? true : false)
-    setActiveCycleId(null)
+    setUserGuessedCorrectly((weekday.day.toString() === guess) ? true : false)
+
+    finishCurrentCycle()
     setPassedMilliseconds(0)
 
     setIsModalOpen(true)

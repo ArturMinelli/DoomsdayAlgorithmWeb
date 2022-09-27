@@ -1,10 +1,10 @@
 import { differenceInMilliseconds } from "date-fns";
-import { useContext, useEffect } from "react";
-import { CyclesContext } from "../../../../contexts/CyclesContext";
+import { useEffect } from "react";
+import { useCycles } from "../../../../hooks/useCycles";
 import { Separator, TimerContainer } from "./styles";
 
 export function Timer() {
-  const { activeCycle, passedMilliseconds, updateMilliseconds } = useContext(CyclesContext)
+  const { activeCycle, passedMilliseconds, updateMilliseconds } = useCycles()
 
   useEffect(() => {
     let interval: number

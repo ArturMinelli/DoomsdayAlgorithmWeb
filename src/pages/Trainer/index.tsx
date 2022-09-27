@@ -1,16 +1,15 @@
 import { TrainerContainer } from './styles'
-import { useContext } from 'react'
 import { handleKeyboardEvents } from '../../utils/handleKeyboardEvents'
 import * as Dialog from '@radix-ui/react-dialog'
 import { UserGuessFeedbackModal } from './components/UserGuessFeedbackModal'
 import { Timer } from './components/Timer'
 import { WeekdaysButtons } from './components/WeekdaysButtons'
 import { StartButton } from './components/StartButton'
-import { CyclesContext } from '../../contexts/CyclesContext'
 import { RandomDate } from './components/RandomDate'
+import { useCycles } from '../../hooks/useCycles'
 
 export function Trainer() {
-  const { activeCycle, randomDate, weekday, isModalOpen, handleCloseModal } = useContext(CyclesContext)
+  const { activeCycle, randomDate, weekday, isModalOpen, handleCloseModal } = useCycles()
 
   handleKeyboardEvents()
   return (
@@ -19,7 +18,7 @@ export function Trainer() {
       { activeCycle ? <Timer /> : <StartButton /> }
 
       <RandomDate
-        text={activeCycle ? `${randomDate.day} ${randomDate.month} ${randomDate.year} ${weekday}` : "Press the spacebar to start"}
+        text={activeCycle ? `${randomDate.day} ${randomDate.month} ${randomDate.year} ${weekday.day}` : "Press the spacebar to start"}
         size = {activeCycle ? '1.75rem' : '1.25rem'}
       />
 
