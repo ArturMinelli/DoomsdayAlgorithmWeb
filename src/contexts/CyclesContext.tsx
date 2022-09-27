@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useReducer, useState } from "react"
+import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 import { getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerator";
 import { cyclesReducer } from "../reducers/cycles/reducer";
 import { createNewCycleAction, finishCurrentCycleAction } from "../reducers/actions";
@@ -34,10 +34,18 @@ interface CyclesContextProviderProps {
 
 export const CyclesContext = createContext({} as CyclesContextType)
 
+const CYCLES_STORAGE_KEY = "DoomsdayAlgorithm:cyclesState"
+
 export function CyclesContextProvider({ children }: CyclesContextProviderProps) {
   const [cyclesState, dispatch] = useReducer(cyclesReducer, {
     cycles: [],
     activeCycleId: null,
+  }, () => {
+    const storedCycles = localStorage.getItem(CYCLES_STORAGE_KEY)
+
+    if(storedCycles) {
+      return JSON.parse(storedCycles)
+    }
   })
 
   const { cycles, activeCycleId } = cyclesState
@@ -85,6 +93,10 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     setUserGuessedCorrectly(false)
     setIsModalOpen(false)
   }
+
+  useEffect(() => {
+    localStorage.setItem(CYCLES_STORAGE_KEY, JSON.stringify(cyclesState))
+  }, [cyclesState])
 
   return (
     <CyclesContext.Provider
