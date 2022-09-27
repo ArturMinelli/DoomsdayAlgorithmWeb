@@ -1,31 +1,4 @@
-interface MonthInfo {
-  doomsday: number;
-  length: number;
-}
-
-interface MonthsInfo {
-  january: MonthInfo;
-  february:MonthInfo;
-  march:MonthInfo;
-  april:MonthInfo;
-  may:MonthInfo;
-  june:MonthInfo;
-  july:MonthInfo;
-  august:MonthInfo;
-  september:MonthInfo;
-  october:MonthInfo;
-  november:MonthInfo;
-  december:MonthInfo;
-}
-
-type MonthsInfoKey = keyof MonthsInfo
-
-interface CenturiesInfo {
-  1700: number;
-  1800: number;
-  1900: number;
-  2000: number;
-}
+import { format } from 'date-fns'
 
 export interface WeekdayAnswer {
   day: number;
@@ -38,140 +11,84 @@ export interface WeekdayAnswer {
   }
 }
 
-type CenturiesInfoKey = keyof CenturiesInfo
-
-export interface RandomDate {
-  year: number;
-  month: string;
-  day: number;
+interface CenturiesInfo {
+  1700: number;
+  1800: number;
+  1900: number;
+  2000: number;
 }
 
-export class DateGenerator {
-  monthsInfo: MonthsInfo;
-  centuriesInfo: CenturiesInfo;
+type CenturiesInfoKey = keyof CenturiesInfo
 
-  constructor() {
-    this.monthsInfo = {
-      january: {
-        doomsday: 3,
-        length: 31,
-      },
-      february: {
-        doomsday: 28,
-        length: 28,
-      },
-      march: {
-        doomsday: 14,
-        length: 31,
-      },
-      april: {
-        doomsday: 4,
-        length: 30,
-      },
-      may: {
-        doomsday: 9,
-        length: 31,
-      },
-      june: {
-        doomsday: 6,
-        length: 30,
-      },
-      july: {
-        doomsday: 11,
-        length: 31,
-      },
-      august: {
-        doomsday: 8,
-        length: 31,
-      },
-      september: {
-        doomsday: 5,
-        length: 30,
-      },
-      october: {
-        doomsday: 10,
-        length: 31,
-      },
-      november: {
-        doomsday: 7,
-        length: 30,
-      },
-      december: {
-        doomsday: 12,
-        length: 31,
-      },
-    }
-    this.centuriesInfo = {
-      1700: 1,
-      1800: 5,
-      1900: 3,
-      2000: 2,
-    }
-  }
+const monthsInfo: number[] = [
+  0,
+  3,
+  28,
+  14,
+  4,
+  9,
+  6,
+  11,
+  8,
+  5,
+  10,
+  7,
+  12
+]
 
-  public generateDate(from: number, to: number): RandomDate {
-    const year = this.getRandomYear(from, to)
-    const month = this.getRandomMonth()
-    let day = this.getRandomDay(year, month)
+const centuriesInfo: CenturiesInfo = {
+  1700: 1,
+  1800: 5,
+  1900: 3,
+  2000: 2,
+}
 
-    return {year, month, day}
-  }
+export const weekdaysInfo: string[] = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+]
 
-  private getRandomYear(from: number, to: number): number {
-    return this.randomInt(from, to)
-  }
+export function getRandomDate(start: Date = new Date(1700, 1, 1), end: Date = new Date(2099, 12, 31 )) {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
 
-  private getRandomMonth(): string {
-    let months = Object.keys(this.monthsInfo)
-    let month = months[this.randomInt(0, 12)]
-    return month
-  }
+export function getWeekday(date: Date): WeekdayAnswer {
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  const day = date.getDay()
 
-  private getRandomDay(year: number, month: string): number {
-    let monthLength = this.monthsInfo[month as MonthsInfoKey].length
+  // Helper variables
+  const century = Math.floor(year / 100) * 100
+  const decade = year - century
+  const leapYearException = (decade % 4 === 0 && month === 1 || month === 2)
+  const monthDoomsday = leapYearException ? monthsInfo[month] + 1 : monthsInfo[month]
 
-    if(month === 'february' && year % 4 === 0) {
-      return this.randomInt(1, monthLength + 2)
-    } else {
-      return this.randomInt(1, monthLength + 1)
+  // Doomsday Algorithm
+  const dayToMonthDoomsdayOffset = (day - monthDoomsday) % 7
+  const centuryCode = centuriesInfo[century as CenturiesInfoKey]
+  const divisionDecadeByTwelve = Math.floor(decade / 12)
+  const remainderDecadeByTwelve = decade % 12
+  const divisionRemainderByFour = Math.floor(remainderDecadeByTwelve / 4)
+
+  const weekday = (dayToMonthDoomsdayOffset + centuryCode + divisionDecadeByTwelve + remainderDecadeByTwelve + divisionRemainderByFour) % 7
+
+  return {
+    day: weekday,
+    steps: {
+      dayToMonthDoomsdayOffset,
+      centuryCode,
+      divisionDecadeByTwelve,
+      remainderDecadeByTwelve,
+      divisionRemainderByFour,
     }
   }
+}
 
-  private randomInt(from: number, to: number): number {
-    return Math.floor(Math.random() * (to - from) ) + from
-  }
-
-  public getWeekday(date: RandomDate): WeekdayAnswer {
-    const { year, month, day } = date
-
-    // Helper variables
-    const century = Math.floor(year / 100) * 100
-    const decade = year - century
-    const leapYearException = (decade % 4 === 0 && month === 'january' || month === 'february')
-    const monthDoomsday = leapYearException ? this.monthsInfo[month as MonthsInfoKey].doomsday + 1 : this.monthsInfo[month as MonthsInfoKey].doomsday
-
-    // Doomsday Algorithm
-    const dayToMonthDoomsdayOffset = (day - monthDoomsday) % 7
-    const centuryCode = this.centuriesInfo[century as CenturiesInfoKey]
-    const divisionDecadeByTwelve = Math.floor(decade / 12)
-    const remainderDecadeByTwelve = decade % 12
-    const divisionRemainderByFour = Math.floor(remainderDecadeByTwelve / 4)
-
-    const weekday = (dayToMonthDoomsdayOffset + centuryCode + divisionDecadeByTwelve + remainderDecadeByTwelve + divisionRemainderByFour) % 7
-    return {
-      day: weekday,
-      steps: {
-        dayToMonthDoomsdayOffset,
-        centuryCode,
-        divisionDecadeByTwelve,
-        remainderDecadeByTwelve,
-        divisionRemainderByFour,
-      }
-    }
-  }
-
-  public formatDate(randomDate: RandomDate): string {
-    return `${randomDate.day} ${randomDate.month} ${randomDate.year}`
-  }
-
+export function formatDate(date: Date) {
+  return format(date, "LLLL d',' u")
 }

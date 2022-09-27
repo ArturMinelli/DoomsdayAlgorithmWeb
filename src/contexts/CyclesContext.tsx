@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useReducer, useState } from "react"
-import { DateGenerator, RandomDate, WeekdayAnswer } from "../utils/DateGenerator";
-import { cyclesReducer, CyclesState } from "../reducers/cycles/reducer";
+import { getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerator";
+import { cyclesReducer } from "../reducers/cycles/reducer";
 import { createNewCycleAction, finishCurrentCycleAction } from "../reducers/actions";
 import { v4 as uuid } from 'uuid'
 
@@ -10,7 +10,7 @@ interface CyclesContextType {
   activeCycle: Cycle | undefined;
   passedMilliseconds: number;
   isModalOpen: boolean;
-  randomDate: RandomDate;
+  randomDate: Date;
   weekday: WeekdayAnswer;
   userGuessedCorrectly: boolean | undefined;
   createNewCycle: () => void;
@@ -21,8 +21,9 @@ interface CyclesContextType {
 
 export interface Cycle {
   id: string;
-  randomDate: RandomDate;
+  randomDate: Date;
   weekday: WeekdayAnswer;
+  userGuess?: string;
   startDate: Date;
   finishDate?: Date;
 }
@@ -34,8 +35,6 @@ interface CyclesContextProviderProps {
 export const CyclesContext = createContext({} as CyclesContextType)
 
 export function CyclesContextProvider({ children }: CyclesContextProviderProps) {
-  const dateGenerator = new DateGenerator()
-
   const [cyclesState, dispatch] = useReducer(cyclesReducer, {
     cycles: [],
     activeCycleId: null,
@@ -52,8 +51,8 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
   const weekday = (activeCycle && activeCycle.weekday)
 
   function createNewCycle() {
-    const randomDate = dateGenerator.generateDate(1700, 2100)
-    const weekday = dateGenerator.getWeekday(randomDate)
+    const randomDate = getRandomDate()
+    const weekday = getWeekday(randomDate)
 
     const newCycle = {
       id: uuid(),
@@ -65,8 +64,8 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     dispatch(createNewCycleAction(newCycle))
   }
 
-  function finishCurrentCycle() {
-    dispatch(finishCurrentCycleAction())
+  function finishCurrentCycle(userGuess: string) {
+    dispatch(finishCurrentCycleAction(userGuess))
   }
 
   function updateMilliseconds(milliseconds: number) {
@@ -76,7 +75,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
   function handleUserGuess(guess: string) {
     setUserGuessedCorrectly((weekday.day.toString() === guess) ? true : false)
 
-    finishCurrentCycle()
+    finishCurrentCycle(guess)
     setPassedMilliseconds(0)
 
     setIsModalOpen(true)

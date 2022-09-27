@@ -15,8 +15,11 @@ export function createNewCycleAction(newCycle: Cycle) {
   }
 }
 
-export function finishCurrentCycleAction() {
+export function finishCurrentCycleAction(userGuess: string) {
   return {
     type: ActionTypes.FINISH_CURRENT_CYCLE,
+    payload: {
+      userGuess,
+    },
   }
 }

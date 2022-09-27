@@ -9,6 +9,7 @@ export const TimerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
 
   background: ${(props) => props.theme['gray-600']};
   padding: 0.75rem 0;

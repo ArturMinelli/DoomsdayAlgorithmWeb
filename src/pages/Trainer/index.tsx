@@ -7,6 +7,7 @@ import { WeekdaysButtons } from './components/WeekdaysButtons'
 import { StartButton } from './components/StartButton'
 import { RandomDate } from './components/RandomDate'
 import { useCycles } from '../../hooks/useCycles'
+import { formatDate } from '../../utils/DateGenerator'
 
 export function Trainer() {
   const { activeCycle, randomDate, weekday, isModalOpen, handleCloseModal } = useCycles()
@@ -18,7 +19,7 @@ export function Trainer() {
       { activeCycle ? <Timer /> : <StartButton /> }
 
       <RandomDate
-        text={activeCycle ? `${randomDate.day} ${randomDate.month} ${randomDate.year} ${weekday.day}` : "Press the spacebar to start"}
+        text={activeCycle ? `${formatDate(randomDate)} ${weekday.day}` : "Press the spacebar to start"}
         size = {activeCycle ? '1.75rem' : '1.25rem'}
       />
 

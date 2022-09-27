@@ -1,7 +1,8 @@
 import { HistoryContainer, HistoryList, Status } from './styles'
 import { formatDistanceToNow, differenceInMilliseconds } from 'date-fns'
-import { DateGenerator } from '../../utils/DateGenerator'
+import { formatDate, weekdaysInfo } from '../../utils/DateGenerator'
 import { useCycles } from '../../hooks/useCycles'
+import { millisecondsToSeconds } from '../../utils/millisecondsToSeconds'
 
 export function History() {
   const { cycles } = useCycles()
@@ -15,7 +16,8 @@ export function History() {
           <thead>
             <tr>
               <th>Date</th>
-              <th>Answer</th>
+              <th>Weekday</th>
+              <th>Your guess</th>
               <th>Started at</th>
               <th>Duration</th>
               <th>Status</th>
@@ -24,19 +26,27 @@ export function History() {
           <tbody>
           {
               cycles.map((cycle) => {
-                const dateGenerator = new DateGenerator()
-                const formattedDate = dateGenerator.formatDate(cycle.randomDate)
-                const duration = differenceInMilliseconds()
+                let cycleDuration
+                const userGuessInt = cycle.userGuess ? parseInt(cycle.userGuess) : 0
+
+                if(cycle.finishDate) {
+                  const [seconds, milliseconds] = millisecondsToSeconds(differenceInMilliseconds(cycle.finishDate, cycle.startDate))
+                  cycleDuration = `${seconds}.${milliseconds}s`
+                } else {
+                  const [seconds, milliseconds] = millisecondsToSeconds(differenceInMilliseconds(new Date(), cycle.startDate))
+                  cycleDuration = `${seconds}.${milliseconds}s`
+                }
 
                 return (
                   <tr key={cycle.id}>
-                    <td>{formattedDate}</td>
-                    <td>{cycle.weekday.day}</td>
+                    <td>{formatDate(cycle.randomDate)}</td>
+                    <td>{weekdaysInfo[cycle.weekday.day]}</td>
+                    <td>{weekdaysInfo[userGuessInt]}</td>
                     <td>{formatDistanceToNow(new Date(cycle.startDate), {
                         addSuffix: true,
                       })}
                     </td>
-                    <td>{cycle.finishDate?.toISOString()}</td>
+                    <td>{cycleDuration}</td>
                     <td>{cycle.id}</td>
                   </tr>
                 )

@@ -19,7 +19,11 @@ export function cyclesReducer(state: CyclesState, action: any) {
     case ActionTypes.FINISH_CURRENT_CYCLE: {
       const newCycles = state.cycles.map((cycle) => {
         if(cycle.id === state.activeCycleId) {
-          return { ...cycle, finishDate: new Date(), }
+          return {
+            ...cycle,
+            userGuess: action.payload.userGuess,
+            finishDate: new Date(),
+          }
         } else {
           return cycle
         }
