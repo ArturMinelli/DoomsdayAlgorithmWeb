@@ -90,5 +90,5 @@ export function getWeekday(date: Date): WeekdayAnswer {
 }
 
 export function formatDate(date: Date) {
-  return format(date, "LLLL d',' u")
+  return format(new Date(date), "LLLL d',' u")
 }

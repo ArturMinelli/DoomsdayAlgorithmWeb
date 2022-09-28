@@ -28,9 +28,12 @@ export function History() {
               cycles.map((cycle) => {
                 let cycleDuration
                 const userGuessInt = cycle.userGuess ? parseInt(cycle.userGuess) : 0
+                const weekday = weekdaysInfo[cycle.weekday.day]
+                const userGuess = weekdaysInfo[userGuessInt]
+                const userGuessedCorrectly = weekday === userGuess
 
                 if(cycle.finishDate) {
-                  const [seconds, milliseconds] = millisecondsToSeconds(differenceInMilliseconds(cycle.finishDate, cycle.startDate))
+                  const [seconds, milliseconds] = millisecondsToSeconds(differenceInMilliseconds(new Date(cycle.finishDate), new Date(cycle.startDate)))
                   cycleDuration = `${seconds}.${milliseconds}s`
                 } else {
                   const [seconds, milliseconds] = millisecondsToSeconds(differenceInMilliseconds(new Date(), cycle.startDate))
@@ -40,14 +43,14 @@ export function History() {
                 return (
                   <tr key={cycle.id}>
                     <td>{formatDate(cycle.randomDate)}</td>
-                    <td>{weekdaysInfo[cycle.weekday.day]}</td>
-                    <td>{weekdaysInfo[userGuessInt]}</td>
+                    <td>{weekday}</td>
+                    <td>{userGuess}</td>
                     <td>{formatDistanceToNow(new Date(cycle.startDate), {
                         addSuffix: true,
                       })}
                     </td>
                     <td>{cycleDuration}</td>
-                    <td>{cycle.id}</td>
+                    <td>{userGuessedCorrectly ? "Correct" : "Incorrect"}</td>
                   </tr>
                 )
               })
