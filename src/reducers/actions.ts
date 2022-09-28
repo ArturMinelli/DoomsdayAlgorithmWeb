@@ -3,7 +3,8 @@ import { Cycle } from "../contexts/CyclesContext"
 
 export enum ActionTypes {
   CREATE_NEW_CYCLE = "CREATE_NEW_CYCLE",
-  FINISH_CURRENT_CYCLE = "FINISH_CURRENT_CYCLE"
+  FINISH_CURRENT_CYCLE = "FINISH_CURRENT_CYCLE",
+  EMPTY_CYCLES = "EMPTY_CYCLES",
 }
 
 export function createNewCycleAction(newCycle: Cycle) {
@@ -21,5 +22,11 @@ export function finishCurrentCycleAction(userGuess: string) {
     payload: {
       userGuess,
     },
+  }
+}
+
+export function emptyCyclesAction() {
+  return {
+    type: ActionTypes.EMPTY_CYCLES,
   }
 }

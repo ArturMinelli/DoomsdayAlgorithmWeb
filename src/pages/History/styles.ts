@@ -85,3 +85,35 @@ export const Status = styled.span<StatusProps>`
       props.theme[STATUS_COLOR[props.statusColor]]};
   }
 `
+
+export const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h1 {
+    color: ${(props) => props.theme['green-500']};
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 6px;
+    //color: ${(props) => props.theme['gray-100']};
+    background: none;
+    color: ${(props) => props.theme['red-500']};
+    padding: 0.5rem;
+    transition: 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      color: ${(props) => props.theme['red-700']};
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+`

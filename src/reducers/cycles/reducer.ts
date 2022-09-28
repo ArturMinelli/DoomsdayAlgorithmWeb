@@ -38,6 +38,13 @@ export function cyclesReducer(state: CyclesState, action: any) {
       }
     }
 
+    case ActionTypes.EMPTY_CYCLES: {
+      return {
+        cycles: [],
+        activeCycleId: null
+      }
+    }
+
   }
 
   return state

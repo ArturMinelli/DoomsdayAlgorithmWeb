@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 import { getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerator";
 import { cyclesReducer } from "../reducers/cycles/reducer";
-import { createNewCycleAction, finishCurrentCycleAction } from "../reducers/actions";
+import { createNewCycleAction, emptyCyclesAction, finishCurrentCycleAction } from "../reducers/actions";
 import { v4 as uuid } from 'uuid'
 
 interface CyclesContextType {
@@ -17,6 +17,7 @@ interface CyclesContextType {
   handleUserGuess: (guess: string) => void;
   handleCloseModal: () => void;
   updateMilliseconds: (milliseconds: number) => void;
+  emptyCycles: () => void;
 }
 
 export interface Cycle {
@@ -76,6 +77,10 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     dispatch(finishCurrentCycleAction(userGuess))
   }
 
+  function emptyCycles() {
+    dispatch(emptyCyclesAction())
+  }
+
   function updateMilliseconds(milliseconds: number) {
     setPassedMilliseconds(milliseconds)
   }
@@ -113,6 +118,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
         handleUserGuess,
         handleCloseModal,
         updateMilliseconds,
+        emptyCycles,
       }}
     >
       {children}

@@ -1,16 +1,26 @@
-import { HistoryContainer, HistoryList, Status } from './styles'
+import { HistoryContainer, HistoryList, Status, TitleContainer } from './styles'
 import { formatDistanceToNow, differenceInMilliseconds } from 'date-fns'
 import { formatDate, weekdaysInfo } from '../../utils/DateGenerator'
 import { useCycles } from '../../hooks/useCycles'
 import { millisecondsToSeconds } from '../../utils/millisecondsToSeconds'
 import { formatSecondsAndMilliseconds } from '../../utils/formatSecondsAndMilliseconds'
+import { Trash } from 'phosphor-react'
 
 export function History() {
-  const { cycles } = useCycles()
+  const { cycles, emptyCycles } = useCycles()
+
+  function handleEmptyCycles() {
+    emptyCycles()
+  }
 
   return (
     <HistoryContainer>
-      <h1>My history</h1>
+      <TitleContainer>
+        <h1>History</h1>
+        <button>
+          <Trash onClick={handleEmptyCycles} size={20} />
+        </button>
+      </TitleContainer>
 
       <HistoryList>
         <table>
