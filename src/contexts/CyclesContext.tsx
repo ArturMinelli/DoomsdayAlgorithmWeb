@@ -25,7 +25,7 @@ export interface Cycle {
   weekday: WeekdayAnswer;
   userGuess?: string;
   startDate: Date;
-  finishDate?: Date;
+  duration?: number;
 }
 
 interface CyclesContextProviderProps {
@@ -40,12 +40,12 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
   const [cyclesState, dispatch] = useReducer(cyclesReducer, {
     cycles: [],
     activeCycleId: null,
-  }, () => {
+  }, (initialState) => {
     const storedCycles = localStorage.getItem(CYCLES_STORAGE_KEY)
 
     if(storedCycles) {
       return JSON.parse(storedCycles)
-    }
+    } else return initialState
   })
 
   const { cycles, activeCycleId } = cyclesState
@@ -81,7 +81,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
   }
 
   function handleUserGuess(guess: string) {
-    setUserGuessedCorrectly((weekday.day.toString() === guess) ? true : false)
+    setUserGuessedCorrectly((weekday.day == guess) ? true : false)
 
     finishCurrentCycle(guess)
     setPassedMilliseconds(0)

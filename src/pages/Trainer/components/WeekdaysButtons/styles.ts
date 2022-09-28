@@ -34,6 +34,10 @@ export const WeekdayButton = styled(ToggleGroup.Item)`
   padding: 0.75rem;
   position: relative;
 
+  &:disabled {
+    opacity: 0.6;
+  }
+
   span {
     font-size: 0.875rem;
     position: absolute;
@@ -41,7 +45,7 @@ export const WeekdayButton = styled(ToggleGroup.Item)`
     left: 0.35rem;
   }
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${(props) => props.theme['gray-300']};
     color: ${(props) => props.theme['green-700']};
     cursor: pointer;

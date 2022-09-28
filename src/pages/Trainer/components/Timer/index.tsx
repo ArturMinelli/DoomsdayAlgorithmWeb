@@ -12,7 +12,7 @@ export function Timer() {
 
     if(activeCycle) {
       interval = setInterval(() => {
-        const currentDifferenceInMilliseconds = differenceInMilliseconds(new Date(), activeCycle.startDate)
+        const currentDifferenceInMilliseconds = differenceInMilliseconds(new Date(), new Date(activeCycle.startDate))
         updateMilliseconds(currentDifferenceInMilliseconds)
       }, 10)
     }

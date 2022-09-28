@@ -3,12 +3,13 @@ import { CyclesContext } from "../../../../contexts/CyclesContext";
 import { ButtonsContainer, WeekdayButton } from "./styles";
 
 export function WeekdaysButtons() {
-  const { handleUserGuess } =  useContext(CyclesContext)
+  const { handleUserGuess, activeCycle } =  useContext(CyclesContext)
 
   return (
     <ButtonsContainer
     type='single'
     onValueChange={handleUserGuess}
+    disabled={!activeCycle}
     >
       <div>
           <WeekdayButton id="0" value="0">

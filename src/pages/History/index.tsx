@@ -3,6 +3,7 @@ import { formatDistanceToNow, differenceInMilliseconds } from 'date-fns'
 import { formatDate, weekdaysInfo } from '../../utils/DateGenerator'
 import { useCycles } from '../../hooks/useCycles'
 import { millisecondsToSeconds } from '../../utils/millisecondsToSeconds'
+import { formatSecondsAndMilliseconds } from '../../utils/formatSecondsAndMilliseconds'
 
 export function History() {
   const { cycles } = useCycles()
@@ -26,33 +27,26 @@ export function History() {
           <tbody>
           {
               cycles.map((cycle) => {
-                let cycleDuration
-                const userGuessInt = cycle.userGuess ? parseInt(cycle.userGuess) : 0
-                const weekday = weekdaysInfo[cycle.weekday.day]
-                const userGuess = weekdaysInfo[userGuessInt]
-                const userGuessedCorrectly = weekday === userGuess
+                if(cycle.duration && cycle.userGuess) {
+                  const userGuessInt = parseInt(cycle.userGuess)
+                  const userGuess = weekdaysInfo[userGuessInt]
+                  const weekday = weekdaysInfo[cycle.weekday.day]
+                  const userGuessedCorrectly = weekday === userGuess
 
-                if(cycle.finishDate) {
-                  const [seconds, milliseconds] = millisecondsToSeconds(differenceInMilliseconds(new Date(cycle.finishDate), new Date(cycle.startDate)))
-                  cycleDuration = `${seconds}.${milliseconds}s`
-                } else {
-                  const [seconds, milliseconds] = millisecondsToSeconds(differenceInMilliseconds(new Date(), cycle.startDate))
-                  cycleDuration = `${seconds}.${milliseconds}s`
+                  return (
+                    <tr key={cycle.id}>
+                      <td>{formatDate(cycle.randomDate)}</td>
+                      <td>{weekday}</td>
+                      <td>{userGuess}</td>
+                      <td>{formatDistanceToNow(new Date(cycle.startDate), {
+                          addSuffix: true,
+                        })}
+                      </td>
+                      <td>{formatSecondsAndMilliseconds(millisecondsToSeconds(cycle.duration))}</td>
+                      <td>{userGuessedCorrectly ? "Correct" : "Incorrect"}</td>
+                    </tr>
+                  )
                 }
-
-                return (
-                  <tr key={cycle.id}>
-                    <td>{formatDate(cycle.randomDate)}</td>
-                    <td>{weekday}</td>
-                    <td>{userGuess}</td>
-                    <td>{formatDistanceToNow(new Date(cycle.startDate), {
-                        addSuffix: true,
-                      })}
-                    </td>
-                    <td>{cycleDuration}</td>
-                    <td>{userGuessedCorrectly ? "Correct" : "Incorrect"}</td>
-                  </tr>
-                )
               })
             }
           </tbody>

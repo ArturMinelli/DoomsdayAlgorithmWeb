@@ -1,3 +1,4 @@
+import { differenceInMilliseconds } from 'date-fns';
 import { Cycle } from '../../contexts/CyclesContext'
 import { ActionTypes } from '../actions';
 
@@ -22,7 +23,7 @@ export function cyclesReducer(state: CyclesState, action: any) {
           return {
             ...cycle,
             userGuess: action.payload.userGuess,
-            finishDate: new Date(),
+            duration: differenceInMilliseconds(new Date(), cycle.startDate)
           }
         } else {
           return cycle
