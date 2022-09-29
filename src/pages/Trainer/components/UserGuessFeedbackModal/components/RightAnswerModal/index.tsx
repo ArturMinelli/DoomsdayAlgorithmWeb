@@ -5,9 +5,9 @@ export function RightAnswerModal({ activeCycle }: ModalContentProps) {
   return (
     <RightAnswerModalContainer>
       <Title>You got it!</Title>
-      {activeCycle && (
-        <Time>Your time was {activeCycle.duration && activeCycle.duration / 1000}s</Time>
-      )}
+      <Time>Your time was {activeCycle?.duration && activeCycle.duration / 1000}s</Time>
+
+      <button></button>
     </RightAnswerModalContainer>
   )
 }

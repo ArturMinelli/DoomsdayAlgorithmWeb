@@ -36,7 +36,7 @@ const monthsInfo: number[] = [
 ]
 
 const centuriesInfo: CenturiesInfo = {
-  1700: 1,
+  1700: 0,
   1800: 5,
   1900: 3,
   2000: 2,
@@ -59,12 +59,12 @@ export function getRandomDate(start: Date = new Date(1700, 1, 1), end: Date = ne
 export function getWeekday(date: Date): WeekdayAnswer {
   const year = date.getFullYear()
   const month = date.getMonth()
-  const day = date.getDay()
+  const day = date.getDate()
 
   // Helper variables
   const century = Math.floor(year / 100) * 100
   const decade = year - century
-  const leapYearException = (decade % 4 === 0 && month === 1 || month === 2)
+  const leapYearException = decade % 4 === 0 && (month === 0 || month === 1)
   const monthDoomsday = leapYearException ? monthsInfo[month] + 1 : monthsInfo[month]
 
   // Doomsday Algorithm
@@ -75,7 +75,6 @@ export function getWeekday(date: Date): WeekdayAnswer {
   const divisionRemainderByFour = Math.floor(remainderDecadeByTwelve / 4)
 
   const weekday = (dayToMonthDoomsdayOffset + centuryCode + divisionDecadeByTwelve + remainderDecadeByTwelve + divisionRemainderByFour) % 7
-
   return {
     day: weekday,
     steps: {

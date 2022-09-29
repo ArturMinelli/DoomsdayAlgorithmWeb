@@ -91,7 +91,6 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
 
   function handleUserGuess(guess: string) {
     setUserGuessedCorrectly(guess == weekday.day)
-    console.log(guess, weekday.day)
     stopTimer(guess)
     setPassedMilliseconds(0)
     setIsModalOpen(true)

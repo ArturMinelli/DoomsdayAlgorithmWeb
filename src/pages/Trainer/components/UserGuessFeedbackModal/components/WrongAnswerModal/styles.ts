@@ -7,6 +7,10 @@ export const RightAnswerModalContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1.25rem;
+
+  button {
+    align-self: flex-end;
+  }
 `
 export const Title = styled.h1`
   font-size: 2.5rem;
