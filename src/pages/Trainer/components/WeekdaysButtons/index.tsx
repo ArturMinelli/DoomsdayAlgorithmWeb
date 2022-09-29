@@ -7,7 +7,7 @@ export function WeekdaysButtons() {
 
   return (
     <ButtonsContainer
-    type='single'
+    type="single"
     onValueChange={handleUserGuess}
     disabled={!activeCycle}
     >

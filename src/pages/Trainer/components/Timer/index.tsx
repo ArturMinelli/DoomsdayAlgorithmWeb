@@ -1,7 +1,6 @@
 import { differenceInMilliseconds } from "date-fns";
 import { useEffect } from "react";
 import { useCycles } from "../../../../hooks/useCycles";
-import { millisecondsToSeconds } from "../../../../utils/millisecondsToSeconds";
 import { Separator, TimerContainer } from "./styles";
 
 export function Timer() {
@@ -23,7 +22,16 @@ export function Timer() {
 
   }, [activeCycle, updateMilliseconds])
 
-  const [seconds, milliseconds] = millisecondsToSeconds(passedMilliseconds)
+  function formatTimerSeconds(passedMilliseconds: number): string[] {
+    const seconds = Math.floor(passedMilliseconds / 1000).toString()
+    const milliseconds = (passedMilliseconds % 1000).toString()
+    const paddedSeconds = seconds.padStart(2, '0')
+    const paddedMilliseconds = milliseconds.padStart(3, '0')
+
+    return [paddedSeconds, paddedMilliseconds]
+  }
+
+  const [seconds, milliseconds] = formatTimerSeconds(passedMilliseconds)
 
   return(
     <TimerContainer>

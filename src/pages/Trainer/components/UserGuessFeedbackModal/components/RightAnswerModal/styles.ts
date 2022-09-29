@@ -15,5 +15,5 @@ export const Title = styled.h1`
 
 export const Time = styled.h2`
   font-size: 1.5rem;
-  color: ${(props) => props.theme['green-500']};
+  color: ${(props) => props.theme['green-100']};
 `

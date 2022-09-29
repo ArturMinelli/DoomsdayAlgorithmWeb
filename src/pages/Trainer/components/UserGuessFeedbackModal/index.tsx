@@ -1,4 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import { Cycle } from '../../../../contexts/CyclesContext'
 import { useCycles } from '../../../../hooks/useCycles'
 import { WeekdayAnswer } from '../../../../utils/DateGenerator'
 import { RightAnswerModal } from './components/RightAnswerModal'
@@ -6,20 +7,20 @@ import { WrongAnswerModal } from './components/WrongAnswerModal'
 import { FeedbackDialogContent, FeedbackDialogOverlay } from './styles'
 
 export interface ModalContentProps {
-  weekday: WeekdayAnswer;
+  activeCycle: Cycle | undefined;
 }
 
 export function UserGuessFeedbackModal() {
-  const { userGuessedCorrectly, weekday } = useCycles()
+  const { userGuessedCorrectly, activeCycle } = useCycles()
 
   return (
     <Dialog.Portal>
       <FeedbackDialogOverlay>
         <FeedbackDialogContent>
           { userGuessedCorrectly ?
-          <RightAnswerModal weekday={weekday} />
+          <RightAnswerModal activeCycle={activeCycle} />
           :
-          <WrongAnswerModal weekday={weekday} />
+          <WrongAnswerModal activeCycle={activeCycle} />
           }
         </FeedbackDialogContent>
       </FeedbackDialogOverlay>

@@ -20,7 +20,10 @@ export const FeedbackDialogContent = styled(Dialog.Content)`
   top: 50%;
   left: 50%;
   transform: translate(-240px, -300px);
-
-  border: 0;
+  box-shadow: none;
   border-radius: 6px;
+
+  &:focus {
+    box-shadow: none;
+  }
 `

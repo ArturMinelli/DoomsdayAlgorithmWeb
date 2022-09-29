@@ -17,24 +17,28 @@ export function cyclesReducer(state: CyclesState, action: any) {
       }
     }
 
-    case ActionTypes.FINISH_CURRENT_CYCLE: {
+    case ActionTypes.STOP_TIMER: {
       const newCycles = state.cycles.map((cycle) => {
         if(cycle.id === state.activeCycleId) {
           return {
             ...cycle,
             userGuess: action.payload.userGuess,
-            duration: differenceInMilliseconds(new Date(), cycle.startDate)
+            duration: differenceInMilliseconds(new Date(), new Date(cycle.startDate))
           }
         } else {
           return cycle
         }
       })
-
-      const newActiveCycleid = null
-
       return {
+        ...state,
         cycles: newCycles,
-        activeCycleId: newActiveCycleid
+      }
+    }
+
+    case ActionTypes.FINISH_CURRENT_CYCLE: {
+      return {
+        ...state,
+        activeCycleId: null
       }
     }
 

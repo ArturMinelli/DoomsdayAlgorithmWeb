@@ -21,7 +21,6 @@ interface CenturiesInfo {
 type CenturiesInfoKey = keyof CenturiesInfo
 
 const monthsInfo: number[] = [
-  0,
   3,
   28,
   14,

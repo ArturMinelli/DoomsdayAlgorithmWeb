@@ -10,7 +10,7 @@ import { useCycles } from '../../hooks/useCycles'
 import { formatDate } from '../../utils/DateGenerator'
 
 export function Trainer() {
-  const { activeCycle, randomDate, weekday, isModalOpen, handleCloseModal } = useCycles()
+  const { activeCycle, randomDate, isModalOpen, handleCloseModal } = useCycles()
 
   handleKeyboardEvents()
   return (
@@ -19,7 +19,7 @@ export function Trainer() {
       { activeCycle ? <Timer /> : <StartButton /> }
 
       <RandomDate
-        text={activeCycle ? `${formatDate(randomDate)} ${weekday.day}` : "Press the spacebar to start"}
+        text={activeCycle ? `${formatDate(randomDate)}` : "Press the spacebar to start"}
         size = {activeCycle ? '1.75rem' : '1.25rem'}
       />
 

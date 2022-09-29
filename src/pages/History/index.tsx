@@ -1,9 +1,7 @@
 import { HistoryContainer, HistoryList, Status, TitleContainer } from './styles'
-import { formatDistanceToNow, differenceInMilliseconds } from 'date-fns'
+import { formatDistanceToNow, differenceInMilliseconds, millisecondsToSeconds } from 'date-fns'
 import { formatDate, weekdaysInfo } from '../../utils/DateGenerator'
 import { useCycles } from '../../hooks/useCycles'
-import { millisecondsToSeconds } from '../../utils/millisecondsToSeconds'
-import { formatSecondsAndMilliseconds } from '../../utils/formatSecondsAndMilliseconds'
 import { Trash } from 'phosphor-react'
 
 export function History() {
@@ -52,7 +50,7 @@ export function History() {
                           addSuffix: true,
                         })}
                       </td>
-                      <td>{formatSecondsAndMilliseconds(millisecondsToSeconds(cycle.duration))}</td>
+                      <td>{cycle.duration / 1000}s</td>
                       <td>{userGuessedCorrectly ? "Correct" : "Incorrect"}</td>
                     </tr>
                   )

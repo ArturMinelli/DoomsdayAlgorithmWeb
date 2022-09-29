@@ -26,7 +26,7 @@ export const WeekdayButton = styled(ToggleGroup.Item)`
   width: 150px;
   background-color: ${(props) => props.theme['gray-600']};
   color: ${(props) => props.theme['green-100']};
-  transition: 0.5s;
+  transition: background 0.5s, color 0.5s;
   border: none;
   border-radius: 8px;
   font-size: 1.125rem;

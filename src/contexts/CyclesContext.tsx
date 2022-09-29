@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
 import { getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerator";
 import { cyclesReducer } from "../reducers/cycles/reducer";
-import { createNewCycleAction, emptyCyclesAction, finishCurrentCycleAction } from "../reducers/actions";
+import { createNewCycleAction, emptyCyclesAction, finishCurrentCycleAction, stopTimerAction } from "../reducers/actions";
 import { v4 as uuid } from 'uuid'
 
 interface CyclesContextType {
@@ -73,8 +73,12 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     dispatch(createNewCycleAction(newCycle))
   }
 
-  function finishCurrentCycle(userGuess: string) {
-    dispatch(finishCurrentCycleAction(userGuess))
+  function stopTimer(userGuess: string) {
+    dispatch(stopTimerAction(userGuess))
+  }
+
+  function finishCurrentCycle() {
+    dispatch(finishCurrentCycleAction())
   }
 
   function emptyCycles() {
@@ -86,17 +90,17 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
   }
 
   function handleUserGuess(guess: string) {
-    setUserGuessedCorrectly((weekday.day == guess) ? true : false)
-
-    finishCurrentCycle(guess)
+    setUserGuessedCorrectly(guess == weekday.day)
+    console.log(guess, weekday.day)
+    stopTimer(guess)
     setPassedMilliseconds(0)
-
     setIsModalOpen(true)
   }
 
   function handleCloseModal() {
     setUserGuessedCorrectly(false)
     setIsModalOpen(false)
+    finishCurrentCycle()
   }
 
   useEffect(() => {
