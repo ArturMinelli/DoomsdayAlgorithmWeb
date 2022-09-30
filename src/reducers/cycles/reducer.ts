@@ -13,7 +13,8 @@ export function cyclesReducer(state: CyclesState, action: any) {
     case ActionTypes.CREATE_NEW_CYCLE: {
       return {
         activeCycleId: action.payload.newCycle.id,
-        cycles: [ ...state.cycles, action.payload.newCycle ]
+        //cycles: [ ...state.cycles, action.payload.newCycle ]
+        cycles: [ action.payload.newCycle, ...state.cycles ]
       }
     }
 
