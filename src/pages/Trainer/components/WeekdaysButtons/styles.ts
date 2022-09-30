@@ -21,11 +21,7 @@ export const ButtonsContainer = styled.div`
 }
 `
 
-interface WeekdayButtonProps {
-  disabled: boolean
-}
-
-export const WeekdayButton = styled.label<WeekdayButtonProps>`
+export const WeekdayButton = styled.button`
   width: 150px;
   display: flex;
   align-items: center;
@@ -41,19 +37,14 @@ export const WeekdayButton = styled.label<WeekdayButtonProps>`
   position: relative;
   user-select: none;
 
-  input {
-    display: none;
-    visibility: hidden;
-  }
-
   ${({disabled, theme}) => css`
     opacity: ${disabled ? 0.6 : 1};
 
-    &:hover {
+    /* &:hover {
       background-color: ${disabled ? theme['gray-600'] : theme['gray-300']};
       color: ${disabled ? theme['green-100'] : theme['gray-700']};
       cursor: ${disabled ? 'inherit' : 'pointer'};
-    }
+    } */
   `}
 
   span {
@@ -63,9 +54,9 @@ export const WeekdayButton = styled.label<WeekdayButtonProps>`
     left: 0.35rem;
   }
 
-  /* &:not(:disabled):hover {
+  &:not(:disabled):hover {
     background-color: ${(props) => props.theme['gray-300']};
     color: ${(props) => props.theme['green-700']};
     cursor: pointer;
-  } */
+  }
 `
