@@ -1,13 +1,12 @@
-import { TrainerContainer } from './styles'
+import { ToastContainerStyled, TrainerContainer } from './styles'
 import { handleKeyboardEvents } from '../../utils/handleKeyboardEvents'
-import * as Dialog from '@radix-ui/react-dialog'
-import { UserGuessFeedbackModal } from './components/UserGuessFeedbackModal'
 import { Timer } from './components/Timer'
 import { WeekdaysButtons } from './components/WeekdaysButtons'
 import { StartButton } from './components/StartButton'
 import { RandomDate } from './components/RandomDate'
 import { useCycles } from '../../hooks/useCycles'
 import { formatDate } from '../../utils/DateGenerator'
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Trainer() {
   const { activeCycle, randomDate, isModalOpen, handleCloseModal } = useCycles()
@@ -24,10 +23,7 @@ export function Trainer() {
       />
 
       <WeekdaysButtons />
-      <Dialog.Root open={isModalOpen} onOpenChange={handleCloseModal}>
-        <UserGuessFeedbackModal  />
-      </Dialog.Root>
-
+      <ToastContainerStyled />
     </TrainerContainer>
   )
 }

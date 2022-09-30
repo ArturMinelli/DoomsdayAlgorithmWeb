@@ -9,7 +9,7 @@ export function Timer() {
   useEffect(() => {
     let interval: number
 
-    if(activeCycle) {
+    if(activeCycle && !activeCycle.duration) {
       interval = setInterval(() => {
         const currentDifferenceInMilliseconds = differenceInMilliseconds(new Date(), new Date(activeCycle.startDate))
         updateMilliseconds(currentDifferenceInMilliseconds)

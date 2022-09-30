@@ -6,8 +6,6 @@ export function handleKeyboardEvents() {
       const startButton = document.getElementById('startButton')
       startButton?.classList.add('pressed')
     }
-
-    document.getElementById(event.key)?.focus()
   })
 
   document.addEventListener('keyup', (event) => {

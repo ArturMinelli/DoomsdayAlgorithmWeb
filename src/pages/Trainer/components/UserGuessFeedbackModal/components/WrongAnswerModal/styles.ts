@@ -15,9 +15,23 @@ export const RightAnswerModalContainer = styled.div`
 export const Title = styled.h1`
   font-size: 2.5rem;
   color: ${(props) => props.theme['red-500']};
+  padding-bottom: 1.875rem;
+  border-radius: 8px;
+  border-bottom: 1px solid ${(props) => props.theme['gray-100']};
 `
 
 export const Time = styled.h2`
   font-size: 1.5rem;
   color: ${(props) => props.theme['red-500']};
+`
+
+export const ExplanationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  text-align: justify;
+
+  p {
+    text-indent: 1rem;
+  }
 `

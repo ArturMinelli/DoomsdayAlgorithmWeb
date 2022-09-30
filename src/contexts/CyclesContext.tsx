@@ -3,6 +3,7 @@ import { getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerato
 import { cyclesReducer } from "../reducers/cycles/reducer";
 import { createNewCycleAction, emptyCyclesAction, finishCurrentCycleAction, stopTimerAction } from "../reducers/actions";
 import { v4 as uuid } from 'uuid'
+import { toast } from "react-toastify";
 
 interface CyclesContextType {
   cycles: Cycle[];
@@ -59,6 +60,21 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
   const randomDate = (activeCycle && activeCycle.randomDate)
   const weekday = (activeCycle && activeCycle.weekday)
 
+  const notify = (type: "success" | "error") => {
+    if(type === "success") {
+      toast.success("You got it!", {
+        autoClose: 1500,
+        theme: "dark",
+      })
+    } else if("error") {
+      toast.error("Wrong answer", {
+        autoClose: 1500,
+        theme: "dark",
+      })
+    }
+
+  }
+
   function createNewCycle() {
     const randomDate = getRandomDate()
     const weekday = getWeekday(randomDate)
@@ -92,8 +108,10 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
   function handleUserGuess(guess: string) {
     setUserGuessedCorrectly(guess == weekday.day)
     stopTimer(guess)
-    setPassedMilliseconds(0)
-    setIsModalOpen(true)
+    setTimeout(() => {
+      finishCurrentCycle()
+    }, 1500)
+    {guess == weekday.day ? notify("success") : notify("error")}
   }
 
   function handleCloseModal() {

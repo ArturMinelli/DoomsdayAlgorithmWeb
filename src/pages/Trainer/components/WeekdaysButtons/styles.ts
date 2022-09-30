@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import * as ToggleGroup from '@radix-ui/react-toggle-group'
+import styled, { css } from 'styled-components'
 
 export const ButtonsContainer = styled.div`
   width: 420px;
@@ -22,7 +21,11 @@ export const ButtonsContainer = styled.div`
 }
 `
 
-export const WeekdayButton = styled.label`
+interface WeekdayButtonProps {
+  disabled: boolean
+}
+
+export const WeekdayButton = styled.label<WeekdayButtonProps>`
   width: 150px;
   display: flex;
   align-items: center;
@@ -36,15 +39,22 @@ export const WeekdayButton = styled.label`
   font-weight: 700;
   padding: 0.75rem;
   position: relative;
+  user-select: none;
 
   input {
     display: none;
     visibility: hidden;
   }
 
-  &:disabled {
-    opacity: 0.6;
-  }
+  ${({disabled, theme}) => css`
+    opacity: ${disabled ? 0.6 : 1};
+
+    &:hover {
+      background-color: ${disabled ? theme['gray-600'] : theme['gray-300']};
+      color: ${disabled ? theme['green-100'] : theme['gray-700']};
+      cursor: ${disabled ? 'inherit' : 'pointer'};
+    }
+  `}
 
   span {
     font-size: 0.875rem;
@@ -53,9 +63,9 @@ export const WeekdayButton = styled.label`
     left: 0.35rem;
   }
 
-  &:not(:disabled):hover {
+  /* &:not(:disabled):hover {
     background-color: ${(props) => props.theme['gray-300']};
     color: ${(props) => props.theme['green-700']};
     cursor: pointer;
-  }
+  } */
 `

@@ -13,14 +13,14 @@ export const FeedbackDialogOverlay = styled(Dialog.Overlay)`
 export const FeedbackDialogContent = styled(Dialog.Content)`
   position: fixed;
   width: 480px;
-  height: 300px;
+  height: 600px;
   background: ${(props) => props.theme['gray-700']};
   padding: 3rem;
   color: white;
   top: 50%;
   left: 50%;
   transform: translate(-240px, -300px);
-  box-shadow: none;
+  border: 4px solid ${(props) => props.theme['gray-500']};
   border-radius: 6px;
 
   &:focus {
