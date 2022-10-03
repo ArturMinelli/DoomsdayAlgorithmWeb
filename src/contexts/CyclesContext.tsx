@@ -110,7 +110,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     stopTimer(guess)
     setTimeout(() => {
       finishCurrentCycle()
-    }, 1000)
+    }, 1500)
     {guess == weekday.day ? notify("success") : notify("error")}
   }
 

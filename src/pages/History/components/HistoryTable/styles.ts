@@ -3,7 +3,7 @@ import * as ScrollArea from '@radix-ui/react-scroll-area'
 
 export const ScrollAreaRoot = styled(ScrollArea.Root)`
   width: 100%;
-  height: 70vh;
+  height: 30rem;
   border-radius: 4;
   overflow: hidden;
   box-shadow: 0 2px 10px black;
