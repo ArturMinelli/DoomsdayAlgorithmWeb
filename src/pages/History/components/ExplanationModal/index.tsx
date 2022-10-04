@@ -1,5 +1,7 @@
+import * as Dialog from '@radix-ui/react-dialog';
+import { X } from 'phosphor-react';
 import { Cycle } from '../../../../contexts/CyclesContext';
-import { centuriesInfo, formatDate, formatMonth, formatMonthAndDay, monthsInfo } from '../../../../utils/DateGenerator';
+import { formatDate, formatMonth, formatMonthAndDay } from '../../../../utils/DateGenerator';
 import { ExplanationConclusion } from './ExplanationConclusion'
 import { Explanation, ExplanationDialogContent, ExplanationDialogOverlay, ExplanationHeader } from './styles'
 
@@ -13,13 +15,16 @@ export function ExplanationModal({selectedCycle}: ExplanationModalProps) {
   }
   else {
     const { weekday, randomDate } = selectedCycle
-    const { day, helperVariables, steps } = weekday
+    const { helperVariables, steps } = weekday
 
     return (
       <ExplanationDialogOverlay>
         <ExplanationDialogContent>
           <ExplanationHeader>
             <h1>Explanation</h1>
+            <Dialog.Close>
+              <X size={16} weight="bold" />
+            </Dialog.Close>
           </ExplanationHeader>
           <Explanation>
             <div className="wave">

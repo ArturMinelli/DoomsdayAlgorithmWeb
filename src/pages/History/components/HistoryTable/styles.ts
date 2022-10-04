@@ -125,3 +125,11 @@ export const OpenModalButton = styled(Dialog.Trigger)`
     opacity: 0;
   }
 `
+
+export const DefaultFocus = styled.button`
+  opacity: 0;
+
+  &:focus {
+    box-shadow: none;
+  }
+`

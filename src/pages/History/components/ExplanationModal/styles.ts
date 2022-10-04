@@ -28,6 +28,23 @@ export const ExplanationHeader = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1.5rem 0 0 0;
+  position: relative;
+
+  button {
+    color: ${(props) => props.theme['gray-100']};
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `
 
 export const Explanation = styled.div`
