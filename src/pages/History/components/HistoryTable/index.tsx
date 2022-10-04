@@ -1,14 +1,15 @@
 import { formatDistanceToNow } from "date-fns";
+import { CaretDown } from "phosphor-react";
 import { useCycles } from "../../../../hooks/useCycles";
 import { formatDate, weekdaysInfo } from "../../../../utils/DateGenerator";
-import { HistoryContentContainer, ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from "./styles";
+import { HistoryContentContainer, OpenModalButton, ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from "./styles";
 
-export function HistoryTable() {
-  const { cycles, emptyCycles } = useCycles()
+interface HistoryTableProps {
+  onCycleIdSelected: (cycleId: string) => void;
+}
 
-  function handleEmptyCycles() {
-    emptyCycles()
-  }
+export function HistoryTable({onCycleIdSelected}: HistoryTableProps) {
+  const { cycles } = useCycles()
 
   return (
     <ScrollAreaRoot>
@@ -37,7 +38,12 @@ export function HistoryTable() {
                   return (
                     <tr key={cycle.id}>
                       <td>{formatDate(cycle.randomDate)}</td>
-                      <td>{weekday}</td>
+                      <td className="weekday">
+                        {weekday}
+                        <OpenModalButton onClick={() => onCycleIdSelected(cycle.id)}>
+                          <CaretDown weight="fill" />
+                        </OpenModalButton>
+                      </td>
                       <td>{userGuess}</td>
                       <td>{formatDistanceToNow(new Date(cycle.startDate), {
                           addSuffix: true,

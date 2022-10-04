@@ -5,7 +5,7 @@ import styled from "styled-components"
 export const LayoutContainer = styled.div`
   max-width: 70rem;
   min-height: calc(100vh - 4.25rem);
-  margin: 5rem auto; //5rem auto
+  margin: 0.6rem auto; //5rem auto
   padding: 2.5rem;
 
   background: ${props => props.theme["gray-800"]};

@@ -12,7 +12,7 @@ export const TimerContainer = styled.div`
   user-select: none;
 
   background: ${(props) => props.theme['gray-600']};
-  padding: 0.75rem 0;
+  padding: 0.65rem 0;
   border-radius: 9999px;
   border: 3px solid ${(props) => props.theme['green-500']};
 `

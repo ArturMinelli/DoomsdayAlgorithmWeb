@@ -2,16 +2,12 @@ import styled, { css } from 'styled-components'
 
 export const ButtonsContainer = styled.div`
   width: 420px;
-  margin: 3rem;
+  margin: 2.1rem;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
   justify-content: center;
   align-items: center;
-
-  &:focus {
-    box-shadow: none;
-  }
 
   div {
     width: 100%;
@@ -33,18 +29,16 @@ export const WeekdayButton = styled.button`
   border-radius: 8px;
   font-size: 1.125rem;
   font-weight: 700;
-  padding: 0.75rem;
+  padding: 0.65rem;
   position: relative;
   user-select: none;
 
-  ${({disabled, theme}) => css`
-    opacity: ${disabled ? 0.6 : 1};
+  &:not(:focus) {
+    box-shadow: 3px 3px 10px ${(props) => props.theme['gray-900']};
+  }
 
-    /* &:hover {
-      background-color: ${disabled ? theme['gray-600'] : theme['gray-300']};
-      color: ${disabled ? theme['green-100'] : theme['gray-700']};
-      cursor: ${disabled ? 'inherit' : 'pointer'};
-    } */
+  ${({disabled}) => css`
+    opacity: ${disabled ? 0.6 : 1};
   `}
 
   span {

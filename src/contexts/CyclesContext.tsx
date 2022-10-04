@@ -1,9 +1,10 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
-import { getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerator";
+import { formatDate, getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerator";
 import { cyclesReducer } from "../reducers/cycles/reducer";
 import { createNewCycleAction, emptyCyclesAction, finishCurrentCycleAction, stopTimerAction } from "../reducers/actions";
 import { v4 as uuid } from 'uuid'
 import { toast } from "react-toastify";
+import { textToSpeech } from "../utils/TextToSpeech";
 
 interface CyclesContextType {
   cycles: Cycle[];
@@ -87,6 +88,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     }
     setPassedMilliseconds(0)
     dispatch(createNewCycleAction(newCycle))
+    textToSpeech(formatDate(randomDate))
   }
 
   function stopTimer(userGuess: string) {

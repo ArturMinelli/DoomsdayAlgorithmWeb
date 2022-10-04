@@ -2,6 +2,11 @@ import { format } from 'date-fns'
 
 export interface WeekdayAnswer {
   day: number;
+  helperVariables: {
+    century: number;
+    decade: number;
+    monthDoomsday: number;
+  }
   steps: {
     dayToMonthDoomsdayOffset: number
     centuryCode: number
@@ -68,7 +73,7 @@ export function getWeekday(date: Date): WeekdayAnswer {
   const monthDoomsday = leapYearException ? monthsInfo[month] + 1 : monthsInfo[month]
 
   // Doomsday Algorithm
-  const dayToMonthDoomsdayOffset = (day - monthDoomsday) % 7
+  const dayToMonthDoomsdayOffset = (day - monthDoomsday)
   const centuryCode = centuriesInfo[century as CenturiesInfoKey]
   const divisionDecadeByTwelve = Math.floor(decade / 12)
   const remainderDecadeByTwelve = decade % 12
@@ -77,6 +82,11 @@ export function getWeekday(date: Date): WeekdayAnswer {
   const weekday = (dayToMonthDoomsdayOffset + centuryCode + divisionDecadeByTwelve + remainderDecadeByTwelve + divisionRemainderByFour) % 7
   return {
     day: weekday,
+    helperVariables: {
+      century,
+      decade,
+      monthDoomsday,
+    },
     steps: {
       dayToMonthDoomsdayOffset,
       centuryCode,

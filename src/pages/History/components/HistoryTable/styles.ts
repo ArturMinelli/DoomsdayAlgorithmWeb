@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
+import * as Dialog from '@radix-ui/react-dialog'
 
 export const ScrollAreaRoot = styled(ScrollArea.Root)`
   width: 100%;
-  height: 30rem;
+  height: 27.5rem;
   border-radius: 4;
   overflow: hidden;
   box-shadow: 0 2px 10px black;
@@ -96,5 +97,31 @@ export const HistoryContentContainer = styled.div`
         padding-right: 1.5rem;
       }
     }
+
+    .weekday {
+      position: relative;
+
+    &:hover svg {
+      opacity: 1;
+      cursor: pointer;
+      color: ${(props) => props.theme['gray-100']};
+    }
+    }
+  }
+`
+
+export const OpenModalButton = styled(Dialog.Trigger)`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+
+  svg {
+    transition: 0.75s;
+    opacity: 0;
   }
 `
