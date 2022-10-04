@@ -25,7 +25,7 @@ interface CenturiesInfo {
 
 type CenturiesInfoKey = keyof CenturiesInfo
 
-const monthsInfo: number[] = [
+export const monthsInfo: number[] = [
   3,
   28,
   14,
@@ -40,7 +40,7 @@ const monthsInfo: number[] = [
   12
 ]
 
-const centuriesInfo: CenturiesInfo = {
+export const centuriesInfo: CenturiesInfo = {
   1700: 0,
   1800: 5,
   1900: 3,
@@ -97,6 +97,18 @@ export function getWeekday(date: Date): WeekdayAnswer {
   }
 }
 
-export function formatDate(date: Date) {
+export function formatDate(date: Date): string {
   return format(new Date(date), "LLLL d',' u")
+}
+
+export function formatMonth(date: Date): string {
+  return format(new Date(date), "LLLL").toLowerCase()
+}
+
+export function formatMonthAndDay(date: Date): string {
+  return format(new Date(date), "MMMM do").toLowerCase()
+}
+
+export function formatDay(date: Date): string {
+  return format(new Date(date), "cccc").toLowerCase()
 }

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import * as Dialog from '@radix-ui/react-dialog'
 
 export const ExplanationDialogContent = styled(Dialog.Content)`
-  width: 24rem;
+  width: 26rem;
   background-color: ${(props) => props.theme['gray-800']};
   border: 2px solid ${(props) => props.theme['green-500']};
   border-radius: 6px;
@@ -45,8 +45,12 @@ export const Explanation = styled.div`
     word-spacing: 0.25rem;
   }
 
-  .wave + p {
-    margin-top: 4rem;
+  .wave + h3 {
+    text-align: center;
+    margin: 2rem 0;
+    padding: 10px 0;
+    border-radius: 99px;
+    border-bottom: 1px solid ${(props) => props.theme['green-100']};
   }
 
   .wave {

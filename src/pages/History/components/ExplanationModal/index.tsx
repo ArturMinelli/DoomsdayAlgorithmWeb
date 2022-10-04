@@ -1,4 +1,5 @@
 import { Cycle } from '../../../../contexts/CyclesContext';
+import { centuriesInfo, formatDate, formatMonth, formatMonthAndDay, monthsInfo } from '../../../../utils/DateGenerator';
 import { ExplanationConclusion } from './ExplanationConclusion'
 import { Explanation, ExplanationDialogContent, ExplanationDialogOverlay, ExplanationHeader } from './styles'
 
@@ -27,14 +28,16 @@ export function ExplanationModal({selectedCycle}: ExplanationModalProps) {
               </svg>
             </div>
 
+            <h3>{formatDate(randomDate)}</h3>
+
             <p>
-              The doomsday of {} is 8, which is {steps.dayToMonthDoomsdayOffset} days away from august 14th.
+              The doomsday of {formatMonth(randomDate)} is {helperVariables.monthDoomsday}, which is {steps.dayToMonthDoomsdayOffset} days away from {formatMonthAndDay(randomDate)}.
             </p>
             <p>
-              The century code of 1900 is 3 and 70 can be divided by twelve 5 times.
-              The remainder of that division is 10, in which four can fit 2 times.
+              The century code of {helperVariables.century} is {steps.centuryCode} and {helperVariables.decade} divided by twelve equals {steps.divisionDecadeByTwelve}.
+              The remainder of that operation is {steps.remainderDecadeByTwelve}, in which four can fit {steps.divisionRemainderByFour} times.
             </p>
-            <ExplanationConclusion totalIsMoreThanSix={false} />
+            <ExplanationConclusion selectedCycle={selectedCycle}/>
           </Explanation>
         </ExplanationDialogContent>
       </ExplanationDialogOverlay>
