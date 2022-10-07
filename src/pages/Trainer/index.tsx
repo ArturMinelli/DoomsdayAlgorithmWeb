@@ -8,6 +8,8 @@ import { useCycles } from '../../hooks/useCycles'
 import { formatDate } from '../../utils/DateGenerator'
 import 'react-toastify/dist/ReactToastify.css';
 import { Gear } from 'phosphor-react'
+import * as Dialog from '@radix-ui/react-dialog'
+import { Ssss, SettingsModal } from './components/SettingsModal'
 
 export function Trainer() {
   const { activeCycle, randomDate, isModalOpen, handleCloseModal } = useCycles()
@@ -24,11 +26,15 @@ export function Trainer() {
       />
 
       <WeekdaysButtons />
-      <TrainerFooter>
-        <button>
-          <Gear size={24}/>
-        </button>
-      </TrainerFooter>
+      <Dialog.Root>
+        <TrainerFooter>
+          <Dialog.Trigger>
+            <Gear size={24}/>
+          </Dialog.Trigger>
+        </TrainerFooter>
+
+        <SettingsModal />
+      </Dialog.Root>
       <ToastContainerStyled />
     </TrainerContainer>
   )

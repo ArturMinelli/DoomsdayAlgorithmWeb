@@ -111,7 +111,7 @@ export const HistoryTable = forwardRef<HTMLButtonElement, HistoryTableProps>(({o
                       </td>
                       <td className="weekday">
                         {weekday}
-                        <OpenModalButton onClick={() => onCycleIdSelected(cycle.id)}>
+                        <OpenModalButton title="Explanation" onClick={() => onCycleIdSelected(cycle.id)}>
                           <CaretDown weight="fill" />
                         </OpenModalButton>
                       </td>
