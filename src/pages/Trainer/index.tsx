@@ -9,33 +9,36 @@ import { formatDate } from '../../utils/DateGenerator'
 import 'react-toastify/dist/ReactToastify.css';
 import { Gear } from 'phosphor-react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { Ssss, SettingsModal } from './components/SettingsModal'
+import { SettingsModal } from './components/SettingsModal'
+import { TrainerContextProvider } from '../../contexts/TrainerContext'
 
 export function Trainer() {
   const { activeCycle, randomDate, isModalOpen, handleCloseModal } = useCycles()
 
   handleKeyboardEvents()
   return (
-    <TrainerContainer>
+    <TrainerContextProvider>
+      <TrainerContainer>
 
-      { activeCycle ? <Timer /> : <StartButton /> }
+        { activeCycle ? <Timer /> : <StartButton /> }
 
-      <RandomDate
-        text={activeCycle ? `${formatDate(randomDate)}` : "Press the spacebar to start"}
-        size = {activeCycle ? '1.75rem' : '1.25rem'}
-      />
+        <RandomDate
+          text={activeCycle ? `${formatDate(randomDate)}` : "Press the spacebar to start"}
+          size = {activeCycle ? '1.4rem' : '1.25rem'} // '1.75rem' : '1.25rem'
+        />
 
-      <WeekdaysButtons />
-      <Dialog.Root>
-        <TrainerFooter>
-          <Dialog.Trigger>
-            <Gear size={24}/>
-          </Dialog.Trigger>
-        </TrainerFooter>
+        <WeekdaysButtons />
+        <Dialog.Root>
+          <TrainerFooter>
+            <Dialog.Trigger>
+              <Gear size={24}/>
+            </Dialog.Trigger>
+          </TrainerFooter>
 
-        <SettingsModal />
-      </Dialog.Root>
-      <ToastContainerStyled />
-    </TrainerContainer>
+          <SettingsModal />
+        </Dialog.Root>
+        <ToastContainerStyled />
+      </TrainerContainer>
+    </TrainerContextProvider>
   )
 }

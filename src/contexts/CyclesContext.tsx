@@ -1,10 +1,9 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react"
-import { formatDate, getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerator";
+import { getRandomDate , getWeekday, WeekdayAnswer } from "../utils/DateGenerator";
 import { cyclesReducer } from "../reducers/cycles/reducer";
 import { createNewCycleAction, emptyCyclesAction, finishCurrentCycleAction, stopTimerAction } from "../reducers/actions";
 import { v4 as uuid } from 'uuid'
 import { toast } from "react-toastify";
-import { textToSpeech } from "../utils/textToSpeech";
 
 interface CyclesContextType {
   cycles: Cycle[];

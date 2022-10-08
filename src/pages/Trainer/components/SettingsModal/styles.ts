@@ -1,13 +1,17 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import * as Dialog from '@radix-ui/react-dialog'
+import * as Checkbox from '@radix-ui/react-checkbox'
 
 export const SettingsModalContent = styled(Dialog.Content)`
   width: 26rem;
   background-color: ${(props) => props.theme['gray-800']};
   border: 2px solid ${(props) => props.theme['green-500']};
   border-radius: 6px;
-
   box-shadow: none;
+
+  &:focus {
+    box-shadow: none;
+  }
 `
 export const SettingsModalOverlay = styled(Dialog.Overlay)`
   background: rgba(0, 0, 0, 0.7);
@@ -27,7 +31,7 @@ export const SettingsHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 0 0 0;
+  padding-top: 1.5rem;
   position: relative;
 
   button {
@@ -48,9 +52,48 @@ export const SettingsHeader = styled.div`
 `
 
 export const SettingsForm = styled.form`
+  width: 100%;
   position: relative;
   z-index: 5;
-  text-align: center;
-  margin: 2rem 0;
-  padding: 10px 0;
+  margin-top: 4rem;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+`
+
+export const SettingsSection = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: ${(props) => props.theme['gray-600']};
+  padding: 1.5rem 1.25rem;
+  gap: 1.5rem;
+  border-radius: 8px;
+  box-shadow: -3px 3px 15px 5px ${(props) => props.theme['gray-900']};
+
+  div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+`
+
+export const StyledCheckbox = styled(Checkbox.Root)`
+  width: 1.25rem;
+  height: 1.25rem;
+  border: none;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme['gray-600']};
+  box-shadow: -1px 1px 5px 1.6px ${(props) => props.theme['gray-900']};
+
+  svg {
+    color: ${(props) => props.theme['green-100']};
+  }
+
+  &:focus {
+    box-shadow: -1px 1px 5px 1.6px ${(props) => props.theme['gray-900']};
+  }
 `
