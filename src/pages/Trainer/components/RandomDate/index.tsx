@@ -1,14 +1,18 @@
+import { useTrainer } from "../../../../hooks/useTrainer";
 import { RandomDateContainer } from "./styles";
 
 
 interface RandomDateProps {
   text: string;
-  size: string;
 }
 
-export function RandomDate({ text, size }: RandomDateProps) {
+export function RandomDate({ text }: RandomDateProps) {
+  const { dateFadeOut } = useTrainer()
+
   return (
-    <RandomDateContainer size={size}>
+    <RandomDateContainer
+      fadeOut={dateFadeOut}
+    >
       {text}
     </RandomDateContainer>
   )

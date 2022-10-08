@@ -41,7 +41,11 @@ export function SettingsModal() {
 
             <SliderInput
               defaultValue={[textToSpeech.value]}
+              value={[textToSpeech.value]}
               disabled={!textToSpeech.active}
+              min={0}
+              max={1}
+              step={0.01}
               onValueChange={(value) => handleChangeSettingOptionValue(value, SettingsOptions.TEXT_TO_SPEECH)}
             />
 
@@ -61,7 +65,11 @@ export function SettingsModal() {
 
             <SliderInput
               defaultValue={[dateFadeOut.value]}
+              value={[dateFadeOut.value]}
               disabled={!dateFadeOut.active}
+              min={0}
+              max={5}
+              step={0.01}
               onValueChange={(value) => handleChangeSettingOptionValue(value, SettingsOptions.DATE_FADE_OUT)}
             />
 

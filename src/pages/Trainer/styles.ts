@@ -18,6 +18,15 @@ export const ToastContainerStyled = styled(ToastContainer).attrs({
   }
 `
 
+export const PressSpaceMessage = styled.p`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  color: ${(props) => props.theme['green-500']};
+  font-size: 1.25rem;
+  font-weight: 700;
+`
+
 export const TrainerFooter = styled.footer`
   width: 100%;
 

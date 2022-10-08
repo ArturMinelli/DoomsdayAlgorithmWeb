@@ -1,18 +1,20 @@
-import { SliderInputRange, SliderInputRoot, SliderInputThumb, SliderInputTrack } from "./styles";
+import { SliderInputContainer, SliderInputRange, SliderInputRoot, SliderInputThumb, SliderInputTrack, SliderInputValue } from "./styles";
 import { SliderProps } from '@radix-ui/react-slider'
 
-export function SliderInput(props: SliderProps) {
+export function SliderInput({value, ...props}: SliderProps) {
   return (
-  <SliderInputRoot
-    { ...props }
-    min={0}
-    max={1}
-    step={0.05}
-  >
-    <SliderInputTrack>
-      <SliderInputRange />
-    </SliderInputTrack>
-    <SliderInputThumb />
-  </SliderInputRoot>
+    <SliderInputContainer>
+      <SliderInputRoot
+        { ...props }
+      >
+        <SliderInputTrack>
+          <SliderInputRange />
+        </SliderInputTrack>
+        <SliderInputThumb />
+      </SliderInputRoot>
+      <SliderInputValue>
+        {value}
+      </SliderInputValue>
+    </SliderInputContainer>
   )
 }

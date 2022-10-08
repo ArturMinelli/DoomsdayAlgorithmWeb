@@ -1,4 +1,4 @@
-import { ToastContainerStyled, TrainerContainer, TrainerFooter } from './styles'
+import { PressSpaceMessage, ToastContainerStyled, TrainerContainer, TrainerFooter } from './styles'
 import { handleKeyboardEvents } from '../../utils/handleKeyboardEvents'
 import { Timer } from './components/Timer'
 import { WeekdaysButtons } from './components/WeekdaysButtons'
@@ -11,6 +11,7 @@ import { Gear } from 'phosphor-react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { SettingsModal } from './components/SettingsModal'
 import { TrainerContextProvider } from '../../contexts/TrainerContext'
+import { useTrainer } from '../../hooks/useTrainer'
 
 export function Trainer() {
   const { activeCycle, randomDate, isModalOpen, handleCloseModal } = useCycles()
@@ -22,11 +23,13 @@ export function Trainer() {
 
         { activeCycle ? <Timer /> : <StartButton /> }
 
+        { activeCycle ?
         <RandomDate
           key={activeCycle?.id}
-          text={activeCycle ? `${formatDate(randomDate)}` : "Press the spacebar to start"}
-          size = {activeCycle ? '1.4rem' : '1.25rem'} // '1.75rem' : '1.25rem'
-        />
+          text={`${formatDate(randomDate)}`}
+        /> :
+          <PressSpaceMessage>Press the spacebar to start</PressSpaceMessage>
+        }
 
         <WeekdaysButtons />
         <Dialog.Root>
