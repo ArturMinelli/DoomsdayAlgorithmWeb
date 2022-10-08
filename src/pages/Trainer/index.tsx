@@ -23,6 +23,7 @@ export function Trainer() {
         { activeCycle ? <Timer /> : <StartButton /> }
 
         <RandomDate
+          key={activeCycle?.id}
           text={activeCycle ? `${formatDate(randomDate)}` : "Press the spacebar to start"}
           size = {activeCycle ? '1.4rem' : '1.25rem'} // '1.75rem' : '1.25rem'
         />

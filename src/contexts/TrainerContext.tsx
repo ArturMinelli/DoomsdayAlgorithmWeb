@@ -1,66 +1,64 @@
 import { createContext, ReactNode, useState } from "react";
 
 interface TrainerContextType {
-  textToSpeech: TextToSpeech;
-  dateFadeOut: DateFadeOut;
-  handleToggleTextToSpeech: () => void;
-  handleChangeTextToSpeechValue: (data: any) => void;
-  handleToggleDateFadeOut: () => void;
-  handleChangeDateFadeOutValue: (data: any) => void;
+  textToSpeech: SettingOption;
+  dateFadeOut: SettingOption;
+  handleToggleSettingOption: (type: string) => void;
+  handleChangeSettingOptionValue: (data: number[], type: string) => void;
 }
 
 interface TrainerContextProviderProps {
   children: ReactNode;
 }
 
-export interface TextToSpeech {
+export interface SettingOption {
   active: boolean;
-  volume: number;
+  value: number;
 }
 
-export interface DateFadeOut {
-  active: boolean;
-  duration: number;
+export enum SettingsOptions {
+  TEXT_TO_SPEECH = "TEXT_TO_SPEECH",
+  DATE_FADE_OUT = "DATE_FADE_OUT"
 }
 
 export const TrainerContext = createContext({} as TrainerContextType)
 
 export function TrainerContextProvider({ children }: TrainerContextProviderProps) {
-  const [textToSpeech, setTextToSpeech] = useState<TextToSpeech>({
+  const [textToSpeech, setTextToSpeech] = useState<SettingOption>({
     active: false,
-    volume: 0.2,
+    value: 0.2,
   })
-  const [dateFadeOut, setDateFadeOut] = useState<DateFadeOut>({
+  const [dateFadeOut, setDateFadeOut] = useState<SettingOption>({
     active: false,
-    duration: 0.2,
+    value: 0.2,
   })
 
-  function handleToggleTextToSpeech() {
-    setTextToSpeech((state) => ({
-      ...state,
-      active: !state.active
-    }))
+  function handleToggleSettingOption(type: string) {
+    if(type === SettingsOptions.TEXT_TO_SPEECH) {
+      setTextToSpeech((state) => ({
+        ...state,
+        active: !state.active
+      }))
+    } else if(type === SettingsOptions.DATE_FADE_OUT) {
+      setDateFadeOut((state) => ({
+        ...state,
+        active: !state.active
+      }))
+    }
   }
 
-  function handleChangeTextToSpeechValue([value]: number[]) {
-    setTextToSpeech((state) => ({
-      ...state,
-      value,
-    }))
-  }
-
-  function handleToggleDateFadeOut() {
-    setDateFadeOut((state) => ({
-      ...state,
-      active: !state.active
-    }))
-  }
-
-  function handleChangeDateFadeOutValue([value]: number[]) {
-    setDateFadeOut((state) => ({
-      ...state,
-      value,
-    }))
+  function handleChangeSettingOptionValue([value]: number[], type: string) {
+    if(type === SettingsOptions.TEXT_TO_SPEECH) {
+      setTextToSpeech((state) => ({
+        ...state,
+        value,
+      }))
+    } else if(type === SettingsOptions.DATE_FADE_OUT) {
+      setDateFadeOut((state) => ({
+        ...state,
+        value,
+      }))
+    }
   }
 
   return (
@@ -68,10 +66,8 @@ export function TrainerContextProvider({ children }: TrainerContextProviderProps
       value={{
         textToSpeech,
         dateFadeOut,
-        handleToggleTextToSpeech,
-        handleChangeTextToSpeechValue,
-        handleToggleDateFadeOut,
-        handleChangeDateFadeOutValue,
+        handleToggleSettingOption,
+        handleChangeSettingOptionValue,
       }}
     >
       {children}

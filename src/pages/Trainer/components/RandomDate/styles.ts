@@ -11,4 +11,10 @@ export const RandomDateContainer = styled.div<RandomdateContainerProps>`
   color: ${(props) => props.theme['green-500']};
   font-size: ${(props) => props.size};
   font-weight: 700;
+  animation: random-date-fade-out 4s;
+
+  @keyframes random-date-fade-out {
+  from {background-color: red;}
+  to {background-color: yellow;}
+}
 `
