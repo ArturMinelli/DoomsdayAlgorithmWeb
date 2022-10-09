@@ -1,7 +1,11 @@
 import { SliderInputContainer, SliderInputRange, SliderInputRoot, SliderInputThumb, SliderInputTrack, SliderInputValue } from "./styles";
 import { SliderProps } from '@radix-ui/react-slider'
 
-export function SliderInput({value, ...props}: SliderProps) {
+export interface SliderInputProps extends SliderProps {
+  suffix?: string;
+}
+
+export function SliderInput({suffix, value, ...props}: SliderInputProps) {
   return (
     <SliderInputContainer>
       <SliderInputRoot
@@ -13,7 +17,7 @@ export function SliderInput({value, ...props}: SliderProps) {
         <SliderInputThumb />
       </SliderInputRoot>
       <SliderInputValue>
-        {value}
+        {value}{suffix}
       </SliderInputValue>
     </SliderInputContainer>
   )

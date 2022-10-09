@@ -31,6 +31,7 @@ export function SettingsModal() {
             <div>
               <label htmlFor="tts">Text to Speech</label>
               <StyledCheckbox
+                id='tts'
                 checked={textToSpeech.active}
                 onCheckedChange={() => toggleTextToSpeech()}
               >
@@ -41,12 +42,13 @@ export function SettingsModal() {
             </div>
 
             <SliderInput
+              suffix='%'
               defaultValue={[textToSpeech.volume]}
               value={[textToSpeech.volume]}
               disabled={!textToSpeech.active}
               min={0}
-              max={1}
-              step={0.01}
+              max={100}
+              step={1}
               onValueChange={([value]) => changeTextToSpeechVolume(value)}
             />
 
@@ -55,6 +57,7 @@ export function SettingsModal() {
             <div>
               <label htmlFor="fadeOut">Date fade-out</label>
               <StyledCheckbox
+                id='fadeOut'
                 checked={dateFadeOut.active}
                 onCheckedChange={() => toggleDateFadeOut()}
               >
@@ -65,12 +68,13 @@ export function SettingsModal() {
             </div>
 
             <SliderInput
+              suffix='s'
               defaultValue={[dateFadeOut.duration]}
               value={[dateFadeOut.duration]}
               disabled={!dateFadeOut.active}
               min={0}
               max={5}
-              step={0.01}
+              step={0.05}
               onValueChange={([value]) => changeDateFadeOutDuration(value)}
             />
 

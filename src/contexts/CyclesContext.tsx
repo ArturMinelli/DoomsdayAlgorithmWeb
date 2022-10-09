@@ -87,7 +87,6 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     }
     setPassedMilliseconds(0)
     dispatch(createNewCycleAction(newCycle))
-    // textToSpeech(formatDate(randomDate), 'en', 0.1)
   }
 
   function stopTimer(userGuess: string) {
@@ -111,7 +110,7 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     stopTimer(guess)
     setTimeout(() => {
       finishCurrentCycle()
-    }, 1500)
+    }, 1000)
     {guess == weekday.day ? notify("success") : notify("error")}
   }
 

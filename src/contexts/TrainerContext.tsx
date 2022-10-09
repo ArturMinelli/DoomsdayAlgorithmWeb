@@ -22,7 +22,7 @@ export function TrainerContextProvider({ children }: TrainerContextProviderProps
   const [settings, dispatch] = useReducer(settingsReducer, {
     textToSpeech: {
       active: true,
-      volume: 0.7,
+      volume: 70,
     },
     dateFadeOut: {
       active: true,
