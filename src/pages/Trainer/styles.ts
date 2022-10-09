@@ -40,14 +40,19 @@ export const TrainerFooter = styled.footer`
     align-items: center;
     justify-content: center;
 
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    &:not(:disabled) svg:hover {
+      cursor: pointer;
+      color: ${(props) => props.theme['green-500']};
+    }
+
     svg {
       color: ${(props) => props.theme['gray-100']};
       transition: 0.3s;
-
-      &:hover {
-        cursor: pointer;
-        color: ${(props) => props.theme['green-500']};
-      }
     }
   }
 `

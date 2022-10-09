@@ -33,7 +33,7 @@ export function Trainer() {
         <WeekdaysButtons />
         <Dialog.Root>
           <TrainerFooter>
-            <Dialog.Trigger>
+            <Dialog.Trigger disabled={activeCycle ? true : false}>
               <Gear size={24}/>
             </Dialog.Trigger>
           </TrainerFooter>
