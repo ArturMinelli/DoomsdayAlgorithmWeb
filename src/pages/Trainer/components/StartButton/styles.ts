@@ -24,4 +24,10 @@ export const StartButtonContainer = styled.button`
     cursor: pointer;
     color: ${(props) => props.theme['green-100']};
   }
+
+  @media (max-width: 600px) {
+    width: 225px;
+    padding: 0.65rem 0;
+    font-size: 2.25rem;
+  }
 `

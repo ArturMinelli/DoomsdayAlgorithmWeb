@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 export const ButtonsContainer = styled.div`
-  width: 420px;
+  width: 40%;
   margin: 2.1rem;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,11 @@ export const ButtonsContainer = styled.div`
     align-items: center;
     justify-content: space-between;
 }
+
+  @media (max-width: 600px) {
+    width: 90%;
+    margin: 1.5rem 1rem 0;
+  }
 `
 
 export const WeekdayButton = styled.button`
@@ -52,5 +57,10 @@ export const WeekdayButton = styled.button`
     background-color: ${(props) => props.theme['gray-300']};
     color: ${(props) => props.theme['green-700']};
     cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    width: 125px;
+    padding: 0.5rem;
   }
 `

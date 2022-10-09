@@ -25,4 +25,10 @@ body, input, textarea, button {
     font-size: 1rem;
 }
 
+@media (max-width: 600px) {
+    body {
+        background: ${(props) => props.theme['gray-800']};
+    }
+}
+
 `

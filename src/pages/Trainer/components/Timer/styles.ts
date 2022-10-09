@@ -15,6 +15,12 @@ export const TimerContainer = styled.div`
   padding: 0.65rem 0;
   border-radius: 9999px;
   border: 3px solid ${(props) => props.theme['green-500']};
+
+  @media (max-width: 600px) {
+    width: 225px;
+    padding: 0.65rem 0;
+    font-size: 2.25rem;
+  }
 `
 
 export const Separator = styled.span`

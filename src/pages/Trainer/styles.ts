@@ -25,6 +25,12 @@ export const PressSpaceMessage = styled.p`
   color: ${(props) => props.theme['green-500']};
   font-size: 1.25rem;
   font-weight: 700;
+
+  @media (max-width: 600px) {
+    opacity: 0;
+    font-size: 1rem;
+    margin-top: 0.75rem;
+  }
 `
 
 export const TrainerFooter = styled.footer`

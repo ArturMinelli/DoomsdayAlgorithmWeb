@@ -7,10 +7,12 @@ export const LayoutContainer = styled.div`
   min-height: calc(100vh - 4.25rem);
   margin: 0.6rem auto; //5rem auto
   padding: 2.5rem;
-
   background: ${props => props.theme["gray-800"]};
   border-radius: 8px;
-
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 600px) {
+    margin: none;
+  }
 `
