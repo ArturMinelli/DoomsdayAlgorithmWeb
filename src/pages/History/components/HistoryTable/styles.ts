@@ -84,8 +84,8 @@ export const HistoryContentContainer = styled.div`
     td {
       background-color: ${(props) => props.theme['gray-700']};
       border-top: 4px solid ${(props) => props.theme['gray-800']};
-      padding: 1rem;
-      font-size: 0.875rem;
+      padding: 0.9rem;
+      font-size: 0.85rem;
       line-height: 1.6;
 
       &:first-child {

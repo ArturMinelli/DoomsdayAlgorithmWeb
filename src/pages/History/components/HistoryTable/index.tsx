@@ -3,6 +3,7 @@ import { CaretDown } from "phosphor-react";
 import { forwardRef, useRef } from "react";
 import { useCycles } from "../../../../hooks/useCycles";
 import { formatDate, weekdaysInfo } from "../../../../utils/DateGenerator";
+import { Status } from "../../styles";
 import { DefaultFocus, HistoryContentContainer, OpenModalButton, ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from "./styles";
 
 interface HistoryTableProps {
@@ -121,7 +122,11 @@ export const HistoryTable = forwardRef<HTMLButtonElement, HistoryTableProps>(({o
                         })}
                       </td>
                       <td>{cycle.duration / 1000}s</td>
-                      <td>{userGuessedCorrectly ? "Correct" : "Incorrect"}</td>
+                      <td> {userGuessedCorrectly ?
+                        <Status statusColor="green">Correct</Status>
+                        :
+                        <Status statusColor="red">Incorrect</Status>}
+                      </td>
                     </tr>
                   )
                 }

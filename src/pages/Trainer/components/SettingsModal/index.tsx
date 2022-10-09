@@ -55,7 +55,7 @@ export function SettingsModal() {
           </SettingsSection>
           <SettingsSection>
             <div>
-              <label htmlFor="fadeOut">Date fade-out</label>
+              <label htmlFor="fadeOut">Date Fade-out</label>
               <StyledCheckbox
                 id='fadeOut'
                 checked={dateFadeOut.active}

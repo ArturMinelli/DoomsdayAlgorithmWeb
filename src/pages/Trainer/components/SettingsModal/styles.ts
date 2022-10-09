@@ -73,6 +73,11 @@ export const SettingsSection = styled.section`
   border-radius: 8px;
   box-shadow: -3px 3px 15px 5px ${(props) => props.theme['gray-900']};
 
+  label {
+    font-weight: bold;
+    text-shadow: -2px 2px 8px black;
+  }
+
   div {
     width: 100%;
     display: flex;
