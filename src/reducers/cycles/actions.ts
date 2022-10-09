@@ -1,4 +1,4 @@
-import { Cycle } from "../contexts/CyclesContext"
+import { Cycle } from "../../contexts/CyclesContext"
 
 
 export enum ActionTypes {

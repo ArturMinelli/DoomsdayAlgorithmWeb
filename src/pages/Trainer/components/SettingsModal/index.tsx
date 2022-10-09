@@ -5,15 +5,16 @@ import { ModalWave } from '../../../../components/ModalWave';
 import { SettingsModalContent, SettingsModalOverlay, SettingsHeader, SettingsForm, SettingsSection, StyledCheckbox } from './styles'
 import { useTrainer } from '../../../../hooks/useTrainer';
 import { SliderInput } from './components/Slider';
-import { SettingsOptions } from '../../../../contexts/TrainerContext';
 
 export function SettingsModal() {
   const {
-    textToSpeech,
-    dateFadeOut,
-    handleToggleSettingOption,
-    handleChangeSettingOptionValue,
+    settings,
+    toggleTextToSpeech,
+    changeTextToSpeechVolume,
+    toggleDateFadeOut,
+    changeDateFadeOutDuration,
   } = useTrainer()
+  const { textToSpeech, dateFadeOut } = settings
 
   return (
     <SettingsModalOverlay>
@@ -31,7 +32,7 @@ export function SettingsModal() {
               <label htmlFor="tts">Text to Speech</label>
               <StyledCheckbox
                 checked={textToSpeech.active}
-                onCheckedChange={() => handleToggleSettingOption(SettingsOptions.TEXT_TO_SPEECH)}
+                onCheckedChange={() => toggleTextToSpeech()}
               >
                 <Checkbox.Indicator>
                   <Check size={18} weight="bold" />
@@ -40,13 +41,13 @@ export function SettingsModal() {
             </div>
 
             <SliderInput
-              defaultValue={[textToSpeech.value]}
-              value={[textToSpeech.value]}
+              defaultValue={[textToSpeech.volume]}
+              value={[textToSpeech.volume]}
               disabled={!textToSpeech.active}
               min={0}
               max={1}
               step={0.01}
-              onValueChange={(value) => handleChangeSettingOptionValue(value, SettingsOptions.TEXT_TO_SPEECH)}
+              onValueChange={([value]) => changeTextToSpeechVolume(value)}
             />
 
           </SettingsSection>
@@ -55,7 +56,7 @@ export function SettingsModal() {
               <label htmlFor="fadeOut">Date fade-out</label>
               <StyledCheckbox
                 checked={dateFadeOut.active}
-                onCheckedChange={() => handleToggleSettingOption(SettingsOptions.DATE_FADE_OUT)}
+                onCheckedChange={() => toggleDateFadeOut()}
               >
                 <Checkbox.Indicator>
                   <Check size={18} weight="bold" />
@@ -64,13 +65,13 @@ export function SettingsModal() {
             </div>
 
             <SliderInput
-              defaultValue={[dateFadeOut.value]}
-              value={[dateFadeOut.value]}
+              defaultValue={[dateFadeOut.duration]}
+              value={[dateFadeOut.duration]}
               disabled={!dateFadeOut.active}
               min={0}
               max={5}
               step={0.01}
-              onValueChange={(value) => handleChangeSettingOptionValue(value, SettingsOptions.DATE_FADE_OUT)}
+              onValueChange={([value]) => changeDateFadeOutDuration(value)}
             />
 
           </SettingsSection>

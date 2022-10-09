@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
-import { SettingOption } from '../../../../contexts/TrainerContext'
+import { DateFadeOut } from '../../../../reducers/settings/reducer';
 
 interface RandomDateContainerProps {
-  fadeOut: SettingOption;
+  fadeOut: DateFadeOut;
 }
 
 export const RandomDateContainer = styled.div<RandomDateContainerProps>`
@@ -14,12 +14,12 @@ export const RandomDateContainer = styled.div<RandomDateContainerProps>`
   font-size: 1.4rem;
   font-weight: 700;
   ${({ fadeOut }) => fadeOut.active && css`
-    animation: random-date-fade-out ${fadeOut.value}s;
+    animation: random-date-fade-out ${fadeOut.duration}s;
   `}
 
   @keyframes random-date-fade-out {
     0%   {opacity: 1;}
-    50%  {opacity: 0.75;}
+    80%  {opacity: 1;}
     100% {opacity: 0;}
 }
 `

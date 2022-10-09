@@ -11,7 +11,6 @@ import { Gear } from 'phosphor-react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { SettingsModal } from './components/SettingsModal'
 import { TrainerContextProvider } from '../../contexts/TrainerContext'
-import { useTrainer } from '../../hooks/useTrainer'
 
 export function Trainer() {
   const { activeCycle, randomDate, isModalOpen, handleCloseModal } = useCycles()

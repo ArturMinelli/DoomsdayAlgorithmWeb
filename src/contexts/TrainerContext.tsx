@@ -1,73 +1,69 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useReducer } from "react";
+import { toggleTextToSpeechAction, changeTextToSpeechVolumeAction, toggleDateFadeOutAction, changeDateFadeOutDurationAction } from "../reducers/settings/actions";
+import { settingsReducer, SettingsState } from "../reducers/settings/reducer";
 
 interface TrainerContextType {
-  textToSpeech: SettingOption;
-  dateFadeOut: SettingOption;
-  handleToggleSettingOption: (type: string) => void;
-  handleChangeSettingOptionValue: (data: number[], type: string) => void;
+  settings: SettingsState;
+  toggleTextToSpeech: () => void;
+  changeTextToSpeechVolume: (volume: number) => void;
+  toggleDateFadeOut: () => void;
+  changeDateFadeOutDuration: (duration: number) => void;
 }
 
 interface TrainerContextProviderProps {
   children: ReactNode;
 }
 
-export interface SettingOption {
-  active: boolean;
-  value: number;
-}
-
-export enum SettingsOptions {
-  TEXT_TO_SPEECH = "TEXT_TO_SPEECH",
-  DATE_FADE_OUT = "DATE_FADE_OUT"
-}
-
 export const TrainerContext = createContext({} as TrainerContextType)
 
+const SETTINGS_STORAGE_KEY = "DoomsdayAlgorithm:settings"
+
 export function TrainerContextProvider({ children }: TrainerContextProviderProps) {
-  const [textToSpeech, setTextToSpeech] = useState<SettingOption>({
-    active: false,
-    value: 0.2,
-  })
-  const [dateFadeOut, setDateFadeOut] = useState<SettingOption>({
-    active: false,
-    value: 0.2,
+  const [settings, dispatch] = useReducer(settingsReducer, {
+    textToSpeech: {
+      active: true,
+      volume: 0.7,
+    },
+    dateFadeOut: {
+      active: true,
+      duration: 3,
+    }
+  }, (initialState) => {
+    const storedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY)
+
+    if(storedSettings) {
+      return JSON.parse(storedSettings)
+    } else return initialState
   })
 
-  function handleToggleSettingOption(type: string) {
-    if(type === SettingsOptions.TEXT_TO_SPEECH) {
-      setTextToSpeech((state) => ({
-        ...state,
-        active: !state.active
-      }))
-    } else if(type === SettingsOptions.DATE_FADE_OUT) {
-      setDateFadeOut((state) => ({
-        ...state,
-        active: !state.active
-      }))
-    }
+  function toggleTextToSpeech() {
+    dispatch(toggleTextToSpeechAction())
   }
 
-  function handleChangeSettingOptionValue([value]: number[], type: string) {
-    if(type === SettingsOptions.TEXT_TO_SPEECH) {
-      setTextToSpeech((state) => ({
-        ...state,
-        value,
-      }))
-    } else if(type === SettingsOptions.DATE_FADE_OUT) {
-      setDateFadeOut((state) => ({
-        ...state,
-        value,
-      }))
-    }
+  function changeTextToSpeechVolume(volume: number) {
+    dispatch(changeTextToSpeechVolumeAction(volume))
   }
+
+  function toggleDateFadeOut() {
+    dispatch(toggleDateFadeOutAction())
+  }
+
+  function changeDateFadeOutDuration(duration: number) {
+    dispatch(changeDateFadeOutDurationAction(duration))
+  }
+
+  useEffect(() => {
+    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings))
+  }, [settings])
 
   return (
     <TrainerContext.Provider
       value={{
-        textToSpeech,
-        dateFadeOut,
-        handleToggleSettingOption,
-        handleChangeSettingOptionValue,
+        settings,
+        toggleTextToSpeech,
+        changeTextToSpeechVolume,
+        toggleDateFadeOut,
+        changeDateFadeOutDuration,
       }}
     >
       {children}

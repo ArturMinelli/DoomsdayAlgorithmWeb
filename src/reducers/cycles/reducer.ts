@@ -1,6 +1,6 @@
 import { differenceInMilliseconds } from 'date-fns';
 import { Cycle } from '../../contexts/CyclesContext'
-import { ActionTypes } from '../actions';
+import { ActionTypes } from './actions';
 
 export interface CyclesState {
   cycles: Cycle[];
