@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components'
 
 export const ButtonsContainer = styled.div`
-  width: 40%;
   margin: 2.1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 2.53rem;
+  column-gap: 3.6rem;
   justify-content: center;
   align-items: center;
 
@@ -17,8 +17,8 @@ export const ButtonsContainer = styled.div`
 }
 
   @media (max-width: 600px) {
-    width: 90%;
-    margin: 1.5rem 1rem 0;
+    margin: 1.5rem 0.75rem 0;
+    column-gap: 2.5rem;
   }
 `
 
