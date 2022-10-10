@@ -17,6 +17,10 @@ body {
     background: ${(props) => props.theme['gray-900']};
     color: ${(props) => props.theme['gray-300']};
     --webkit-font-smoothing: antialiased;
+
+    @media (min-height: 700px) {
+        overflow-y: hidden;
+    }
 }
 
 body, input, textarea, button {
