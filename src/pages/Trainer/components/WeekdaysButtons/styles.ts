@@ -16,7 +16,7 @@ export const ButtonsContainer = styled.div`
     justify-content: space-between;
 }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     height: 50vh;
     margin: 1.5rem 0.75rem 0;
     column-gap: 2.5rem;
