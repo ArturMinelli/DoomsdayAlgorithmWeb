@@ -7,8 +7,11 @@ export const ExplanationDialogContent = styled(Dialog.Content)`
   border: 2px solid ${(props) => props.theme['green-500']};
   border-radius: 6px;
   position: relative;
-
   box-shadow: none;
+
+  @media (max-width: 600px) {
+   width: 95vw;
+  }
 `
 export const ExplanationDialogOverlay = styled(Dialog.Overlay)`
   background: rgba(0, 0, 0, 0.7);

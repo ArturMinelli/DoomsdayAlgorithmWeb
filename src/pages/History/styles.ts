@@ -10,6 +10,10 @@ export const HistoryContainer = styled.main`
     font-size: 1.5rem;
     color: ${(props) => props.theme['gray-100']};
   }
+
+  @media (max-width: 600px) {
+    padding: 0;
+  }
 `
 const STATUS_COLOR = {
   red: 'red-500',

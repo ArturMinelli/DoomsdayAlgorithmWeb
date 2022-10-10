@@ -12,6 +12,10 @@ export const SettingsModalContent = styled(Dialog.Content)`
   &:focus {
     box-shadow: none;
   }
+
+  @media (max-width: 600px) {
+   width: 95vw;
+  }
 `
 export const SettingsModalOverlay = styled(Dialog.Overlay)`
   background: rgba(0, 0, 0, 0.7);

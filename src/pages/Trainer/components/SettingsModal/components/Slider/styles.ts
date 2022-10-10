@@ -3,6 +3,8 @@ import * as Slider from '@radix-ui/react-slider'
 
 export const SliderInputContainer = styled.div`
   padding: 0 1.5rem;
+  display: flex;
+  gap: 1rem;
 `
 
 export const SliderInputRoot = styled(Slider.Root)`

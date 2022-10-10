@@ -10,67 +10,6 @@ interface HistoryTableProps {
   onCycleIdSelected: (cycleId: string) => void;
 }
 
-// export function HistoryTable({onCycleIdSelected}: HistoryTableProps) {
-//   const { cycles } = useCycles()
-
-
-//   return (
-//     <ScrollAreaRoot>
-//       <ScrollAreaViewport>
-//       <HistoryContentContainer>
-//       <DefaultFocus ref={defaultFocus}>Click me</DefaultFocus>
-//         <table>
-//           <thead>
-//             <tr>
-//               <th>Date</th>
-//               <th>Weekday</th>
-//               <th>Your guess</th>
-//               <th>Started at</th>
-//               <th>Duration</th>
-//               <th>Status</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//           {
-//               cycles.map((cycle) => {
-//                 if(cycle.duration && cycle.userGuess) {
-//                   const userGuessInt = parseInt(cycle.userGuess)
-//                   const userGuess = weekdaysInfo[userGuessInt]
-//                   const weekday = weekdaysInfo[cycle.weekday.day]
-//                   const userGuessedCorrectly = weekday === userGuess
-
-//                   return (
-//                     <tr key={cycle.id}>
-//                       <td>{formatDate(cycle.randomDate)}</td>
-//                       <td className="weekday">
-//                         {weekday}
-//                         <OpenModalButton onClick={() => onCycleIdSelected(cycle.id)}>
-//                           <CaretDown weight="fill" />
-//                         </OpenModalButton>
-//                       </td>
-//                       <td>{userGuess}</td>
-//                       <td>{formatDistanceToNow(new Date(cycle.startDate), {
-//                           addSuffix: true,
-//                         })}
-//                       </td>
-//                       <td>{cycle.duration / 1000}s</td>
-//                       <td>{userGuessedCorrectly ? "Correct" : "Incorrect"}</td>
-//                     </tr>
-//                   )
-//                 }
-//               })
-//             }
-//           </tbody>
-//         </table>
-//       </HistoryContentContainer>
-//       </ScrollAreaViewport>
-//       <ScrollAreaScrollbar orientation="vertical">
-//         <ScrollAreaThumb />
-//       </ScrollAreaScrollbar>
-//     </ScrollAreaRoot>
-//   )
-// }
-
 export const HistoryTable = forwardRef<HTMLButtonElement, HistoryTableProps>(({onCycleIdSelected}, ref) => {
   const { cycles } = useCycles()
 
@@ -137,6 +76,9 @@ export const HistoryTable = forwardRef<HTMLButtonElement, HistoryTableProps>(({o
       </HistoryContentContainer>
       </ScrollAreaViewport>
       <ScrollAreaScrollbar orientation="vertical">
+        <ScrollAreaThumb />
+      </ScrollAreaScrollbar>
+      <ScrollAreaScrollbar orientation="horizontal">
         <ScrollAreaThumb />
       </ScrollAreaScrollbar>
     </ScrollAreaRoot>

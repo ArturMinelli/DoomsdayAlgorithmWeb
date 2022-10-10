@@ -9,6 +9,10 @@ export const ScrollAreaRoot = styled(ScrollArea.Root)`
   overflow: hidden;
   box-shadow: 0 2px 10px black;
   margin-top: 2rem;
+
+  @media (max-width: 600px) {
+    height: 75vh;
+  }
 `
 
 export const ScrollAreaViewport = styled(ScrollArea.Viewport)`
@@ -31,6 +35,9 @@ export const ScrollAreaScrollbar = styled(ScrollArea.Scrollbar)`
 
   &[data-orientation="vertical"] {
     width: 10px;
+  }
+  &[data-orientation="horizontal"] {
+    height: 10px;
   }
 `
 
