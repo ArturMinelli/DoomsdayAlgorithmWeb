@@ -1,4 +1,4 @@
-import { HistoryContainer, Status, TitleContainer } from './styles'
+import { HistoryContainer, TitleContainer } from './styles'
 import { useCycles } from '../../hooks/useCycles'
 import { Trash } from 'phosphor-react'
 import { HistoryTable } from './components/HistoryTable'

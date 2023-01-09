@@ -16,7 +16,6 @@ interface CyclesContextType {
   userGuessedCorrectly: boolean | undefined;
   createNewCycle: () => void;
   handleUserGuess: (guess: string) => void;
-  handleCloseModal: () => void;
   updateMilliseconds: (milliseconds: number) => void;
   emptyCycles: () => void;
 }
@@ -114,12 +113,6 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
     {guess == weekday.day ? notify("success") : notify("error")}
   }
 
-  function handleCloseModal() {
-    setUserGuessedCorrectly(false)
-    setIsModalOpen(false)
-    finishCurrentCycle()
-  }
-
   useEffect(() => {
     localStorage.setItem(CYCLES_STORAGE_KEY, JSON.stringify(cyclesState))
   }, [cyclesState])
@@ -137,7 +130,6 @@ export function CyclesContextProvider({ children }: CyclesContextProviderProps) 
         userGuessedCorrectly,
         createNewCycle,
         handleUserGuess,
-        handleCloseModal,
         updateMilliseconds,
         emptyCycles,
       }}
